@@ -25,7 +25,7 @@ public class StandardPanel extends JPanel implements MouseListener {
 
     // Выпадающая из меню Панель добавления заметки
     private JPanel panelAdd;
-
+ 
     // Панель открытия существующей заметки
     private JPanel panelOpen;
 
@@ -48,7 +48,7 @@ public class StandardPanel extends JPanel implements MouseListener {
 // Реализация панели редактирования заметок    
     private JScrollPane scrolBlockZametki;
     private JPanel panelBlockZametki;
-
+ 
     void updateNumZametci() {
         // Обновить количество существующий меток
         NumbetNameZametks.setText("<html><center><font size=6>Заметок:<br/><center>" + getNumberZ());
@@ -127,7 +127,7 @@ public class StandardPanel extends JPanel implements MouseListener {
             urlJavaTicks.frameTicks.setNameZametki(newNameZametka.getText());
             Dirs d = urlJavaTicks.getDirs();
             d.createDir(newNameZametka.getText());
-            urlJavaTicks.setContentPane(urlJavaTicks.frameTicks);
+            
         });
         panelAdd.add(newNameZametka);
 
