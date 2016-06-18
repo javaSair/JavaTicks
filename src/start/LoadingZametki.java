@@ -24,26 +24,28 @@ public class LoadingZametki  {
     private Thread t;
     private JavaTicks urlJavaTicks;
 //    private  Scanner scan;
-    private String name;
     private FileReader fileTicks;
     private FrameTicks urlFrameTicks;
+    StandardPanel urlurlStandardPanel;
 
-    public LoadingZametki(JavaTicks urlJavaTicks, String nameZametki) {
-         this.name = nameZametki;
-        this.urlJavaTicks = urlJavaTicks;
-        this.urlFrameTicks = urlJavaTicks.frameTicks;
-  
+    public LoadingZametki(StandardPanel urlStandardPanel,JavaTicks urlJavaTicks) {
+          this.urlJavaTicks = urlJavaTicks;
+         this.urlurlStandardPanel = urlStandardPanel;
+ 
     }
 
  
-    public void runScan(){
-        String ticks = urlJavaTicks.getNameDefaultDir() + "\\" + name;
+    public void runScan(String nameZametki){
+        System.out.println(nameZametki);
+        String ticks = urlJavaTicks.getNameDefaultDir() + "\\" + nameZametki;
         System.out.println(ticks);
-        if (Files.exists(Paths.get(ticks))) {
-            urlJavaTicks.frameTicks.setNameZametki(name);
+        if (Files.exists(Paths.get(ticks))==true) {
+            System.out.println("пройдена проверка");
+            urlJavaTicks.frameTicks.setNameZametki(nameZametki);
             System.out.println(ticks + " Найден");
-            if (Files.exists(Paths.get(urlJavaTicks.getNameDefaultDir() + "\\" + name + "\\Files"))) {
-                try {
+            if (Files.exists(Paths.get(urlJavaTicks.getNameDefaultDir() + "\\" + nameZametki + "\\Files"))) {
+                try { 
+                    System.out.println("Файлы найдены");
                     //                urlJavaTicks.frameTicks.animationScrolFile();
                     urlJavaTicks.frameTicks.setVisibleFileList(false);
                 } catch (InterruptedException ex) {   Logger.getLogger(LoadingZametki.class.getName()).log(Level.SEVERE, null, ex);
@@ -51,9 +53,9 @@ public class LoadingZametki  {
                 urlJavaTicks.frameTicks.clearListButtonAddFile(); // Очистить коллекчию
                   boolean count = true;
                 try {
-                    DirectoryStream<Path> dir = Files.newDirectoryStream(Paths.get(urlJavaTicks.getNameDefaultDir() + "\\" + name + "\\Files"));
+                    DirectoryStream<Path> dir = Files.newDirectoryStream(Paths.get(urlJavaTicks.getNameDefaultDir() + "\\" + nameZametki + "\\Files"));
                     for (Path x : dir) {
-                        urlFrameTicks.setImageAdFile(x.toAbsolutePath().toString()); // Передать существующий файл
+                        urlJavaTicks.frameTicks.setImageAdFile(x.toAbsolutePath().toString()); // Передать существующий файл
                    count =urlJavaTicks.frameTicks.getLenghtList()<6;
                     }
                     urlJavaTicks.frameTicks.setActivatedAdd(true);
@@ -91,8 +93,8 @@ public class LoadingZametki  {
               }
 
               System.out.println(contentTextBlock);
-                urlFrameTicks.setTextBlock(contentTextBlock);
-                urlFrameTicks.setNameZametki(name);
+                 urlJavaTicks.frameTicks.setTextBlock(contentTextBlock);
+               urlJavaTicks.frameTicks.setNameZametki(nameZametki);
             } catch (IOException ex) {
                 Logger.getLogger(LoadingZametki.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -102,13 +104,14 @@ public class LoadingZametki  {
 //             urlJavaTicks.urlStandardPanel.revalidate();
 //              urlJavaTicks.urlStandardPanel.repaint();
           urlJavaTicks.setContentPane(urlJavaTicks.frameTicks);
-        }else{
-            urlJavaTicks.urlStandardPanel.setVisibalMessage(urlJavaTicks.urlStandardPanel.fonPoppupMessagNO);
-        }       
+        }    
       
 
         
-    }
+    }else{
+            System.out.println("проверка не пройдена");
+             urlurlStandardPanel.setVisibalMessage(urlurlStandardPanel.fonPoppupMessagNO);
+        }   
 
 }
 }

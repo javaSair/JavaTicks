@@ -44,11 +44,21 @@ public class StandardPanel extends JPanel implements MouseListener {
     private JTextField newNameZametka; // поле для новой заметки
     private JTextField openNameZametka; // поле для существующей заметки
 //    private final JLabel labelNameNewZametka;
+    private LoadingZametki urlLoadingZametki;
 
 // Реализация панели редактирования заметок    
     private JScrollPane scrolBlockZametki;
     private JPanel panelBlockZametki;
  
+    
+    
+  LoadingZametki getLoadingZametki(){
+      return urlLoadingZametki;
+  }  
+    
+    
+    
+    
     void updateNumZametci() {
         // Обновить количество существующий меток
         NumbetNameZametks.setText("<html><center><font size=6>Заметок:<br/><center>" + getNumberZ());
@@ -92,6 +102,9 @@ public class StandardPanel extends JPanel implements MouseListener {
  
 
     public StandardPanel(JavaTicks urlJavaTicks) {
+        urlLoadingZametki = new LoadingZametki(this,urlJavaTicks);
+        
+        
 
  
         // Сообщение о наличии создаваемой заметки
@@ -172,7 +185,7 @@ public class StandardPanel extends JPanel implements MouseListener {
         openZametka.addMouseListener(this);
         openZametka.addActionListener((e) -> {
             if (!"".equals(openNameZametka.getText())) {
-                new LoadingZametki(urlJavaTicks, openNameZametka.getText()).runScan();
+                urlLoadingZametki.runScan(openNameZametka.getText());
             } else {
                 openNameZametka.setText("Введите текст");
 
@@ -196,7 +209,7 @@ public class StandardPanel extends JPanel implements MouseListener {
 
             if (!"".equals(openNameZametka.getText())) {
 //                 urlJavaTicks.frameTicks.setNameZametki(openNameZametka.getText());
-                new LoadingZametki(urlJavaTicks, openNameZametka.getText()).runScan();
+                urlLoadingZametki.runScan(openNameZametka.getText());
             } else {
                 openNameZametka.setText("Введите текст");
 
@@ -344,24 +357,26 @@ public class StandardPanel extends JPanel implements MouseListener {
         add(LABELFON, Integer.valueOf(3));
     }
 
-    @Override
+       @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getSource().equals(newNameZametka)) {
             newNameZametka.selectAll();
         } else if (e.getSource().equals(b6)) { //Создать заметку
-            if (!panelAdd.isVisible()) {
+            if(!panelAdd.isVisible()){
                 setVisibalButtons(panelAdd, true);
-                newNameZametka.selectAll();
-            } else {
-                setVisibalButtons(panelAdd, false);
+            newNameZametka.selectAll();
+            }else{
+               setVisibalButtons(panelAdd, false);
             }
-        } else if (e.getSource().equals(b5)) {// Открыть заметку
-            if (!panelOpen.isVisible()) {
+        }else if(e.getSource().equals(b5)){// Открыть заметку
+            if(!panelOpen.isVisible()){
                 setVisibalButtons(panelOpen, true);
+            }else{
+            setVisibalButtons(panelOpen, false); 
             }
-        } else if (e.getSource().equals(openNameZametka) | e.getSource().equals(openZametka)) {
-            openNameZametka.selectAll();
-        }
+        }else if(e.getSource().equals(openNameZametka) | e.getSource().equals(openZametka)){
+                openNameZametka.selectAll();
+            }
     }
 
     @Override

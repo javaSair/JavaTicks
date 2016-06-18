@@ -59,8 +59,8 @@ public class PanelTopMenu extends JPanel implements MouseListener{
     private JTextField newNameZametka; // поле для новой заметки
     private JTextField openNameZametka; // поле для существующей заметки
     
-    public PanelTopMenu(JavaTicks urlJavaTicks) {
-        this.urlJavaTicks = urlJavaTicks;
+    public PanelTopMenu(JavaTicks urlJavaTicks1) {
+        this.urlJavaTicks = urlJavaTicks1;
         
         setLayout(null);
         
@@ -96,11 +96,9 @@ public class PanelTopMenu extends JPanel implements MouseListener{
         newNameZametka.addMouseListener(this);
         newNameZametka.addActionListener((e) -> {
             
-//                     urlJavaTicks.frameTicks.setNameZametki(newNameZametka.getText());
-                     Dirs d = urlJavaTicks.getDirs();
-//                     urlJavaTicks.frameTicks.clearListButtonAddFile(); // Очистить список файлов
-                     d.createDir(newNameZametka.getText()); 
-//                     urlJavaTicks.setContentPane(urlJavaTicks.frameTicks);
+            urlJavaTicks.frameTicks.setNameZametki(newNameZametka.getText());
+            Dirs d = urlJavaTicks.getDirs();
+            d.createDir(newNameZametka.getText());
         });
         
        
@@ -115,7 +113,7 @@ public class PanelTopMenu extends JPanel implements MouseListener{
         newAddZametka.setBounds(100, 0, 80, 20);
         newAddZametka.addActionListener((e) -> {
           
-      
+            urlJavaTicks.frameTicks.setNameZametki(newNameZametka.getText());
             Dirs d = urlJavaTicks.getDirs();
             d.createDir(newNameZametka.getText());
             
@@ -147,13 +145,12 @@ public class PanelTopMenu extends JPanel implements MouseListener{
         openZametka.setBounds(100, 0, 80, 20);
         openZametka.addMouseListener(this);
         openZametka.addActionListener((e) -> {
-                              if(!"".equals(openNameZametka.getText())){
-//                 urlJavaTicks.frameTicks.setNameZametki(openNameZametka.getText());
-                new LoadingZametki(urlJavaTicks, openNameZametka.getText()).runScan();
-                         }else{
-                            openNameZametka.setText("Введите текст");
-                            
-                        }
+          if (!"".equals(openNameZametka.getText())) {
+                urlJavaTicks.getStandardPanel().getLoadingZametki().runScan(openNameZametka.getText());
+            } else {
+                openNameZametka.setText("Введите текст");
+
+            }
         });     
         openZametka.setBorder(null);
         openZametka.setContentAreaFilled(false);
@@ -174,7 +171,7 @@ public class PanelTopMenu extends JPanel implements MouseListener{
             
                                 if(!"".equals(openNameZametka.getText())){
                  
-                new LoadingZametki(urlJavaTicks, openNameZametka.getText()).runScan();
+//                new LoadingZametki(urlJavaTicks, openNameZametka.getText()).runScan();
                         }else{
                             openNameZametka.setText("Введите текст");
                             
