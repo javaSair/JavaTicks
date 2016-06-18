@@ -95,12 +95,12 @@ public class StandardPanel extends JPanel implements MouseListener {
 
  
         // Сообщение о наличии создаваемой заметки
-        fonPoppupMessag = new JLabel(new ImageIcon("src\\image\\Navigation\\search\\Message.png"));
+        fonPoppupMessag = new JLabel(new ImageIcon("src\\image\\search\\Message.png"));
         fonPoppupMessag.setBounds(60, 68, 90, 50);
         fonPoppupMessag.setVisible(false);
         add(fonPoppupMessag, Integer.valueOf(3));
 
-        fonPoppupMessagNO = new JLabel(new ImageIcon("src\\image\\Navigation\\search\\MessageNo.png"));
+        fonPoppupMessagNO = new JLabel(new ImageIcon("src\\image\\search\\MessageNo.png"));
         fonPoppupMessagNO.setBounds(120, 68, 90, 50);
         fonPoppupMessagNO.setVisible(false);
         add(fonPoppupMessagNO, Integer.valueOf(3));
