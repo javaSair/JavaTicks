@@ -238,8 +238,14 @@ public class PanelTopMenu extends JPanel implements MouseListener{
         b4.setContentAreaFilled(false);
         b4.addMouseListener(this);
         b4.addActionListener((e)->{
-            urlJavaTicks.setContentPane(urlJavaTicks.getStandardPanel()); // Перед отображением редактируемой заметки панели переключить панель
-             // Добавить все заметки на панель и отобразить
+//            urlJavaTicks.setContentPane(urlJavaTicks.geturlPanelBlockZametok()); // Перед отображением редактируемой заметки панели переключить панель
+ 
+            
+            urlJavaTicks.geturlPanelBlockZametok().repaintSpisok();
+             PanelBlockZametok  p = new PanelBlockZametok(urlJavaTicks);
+             p.repaintSpisok();
+            
+            // Добавить все заметки на панель и отобразить
                 
         });
         b4.setActionCommand("b4");

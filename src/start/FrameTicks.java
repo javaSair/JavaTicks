@@ -62,17 +62,10 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
     PanelTopMenu urlPanelTopMenu;
     
     
-    
-    
     private final JLabel LABELFON;
     
     
     
-    
-    
-    // Реализовать потиповое добавление иконок файлов
-//    private final ImageIcon IMAGEADD = new ImageIcon(urlJavaTicks.getS()+"src\\image\\newFile.png");
-
     private static boolean flag = false; // Индикатор статуса свернуто\развернуто
 
     

@@ -24,8 +24,8 @@ import javax.swing.SwingUtilities;
 
 public class JavaTicks extends JFrame {
 
-   private final String S = "../";  // для jar
-//   private  String S = "";             // для IDE
+//   private final String S = "../";  // для jar
+   private  String S = "";             // для IDE
    String getS(){
        return S;
    }
@@ -39,6 +39,7 @@ public class JavaTicks extends JFrame {
     private JLabel b;
     private static Path nameDir = Paths.get("C:\\DirZametki");
     private Dirs urlDirs;
+    private PanelBlockZametok urlPanelBlockZametok;
 
     // Реализовать пакет иконок для разных форматов добавляемых к заметки файлов 
     private final TreeMap<String, ImageIcon> IcoMap = new TreeMap<>();
@@ -62,8 +63,15 @@ public class JavaTicks extends JFrame {
         return this;
     }
 
+    
+    
+    
     StandardPanel getStandardPanel() {
         return urlStandardPanel;
+    }
+    
+     PanelBlockZametok geturlPanelBlockZametok() {
+        return urlPanelBlockZametok;
     }
 
     String getNameDefaultDir() {
@@ -144,6 +152,7 @@ public class JavaTicks extends JFrame {
 // Инициализация панелей компонентов
         frameTicks = new FrameTicks(this);
         setContentPane(urlStandardPanel = new StandardPanel(this));
+        urlPanelBlockZametok = new PanelBlockZametok(this);
 
         setVisible(true);
         repaint();
