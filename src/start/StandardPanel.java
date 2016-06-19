@@ -108,12 +108,12 @@ public class StandardPanel extends JPanel implements MouseListener {
 
  
         // Сообщение о наличии создаваемой заметки
-        fonPoppupMessag = new JLabel(new ImageIcon("src\\image\\search\\Message.png"));
+        fonPoppupMessag = new JLabel(new ImageIcon(urlJavaTicks.getS()+"src\\image\\search\\Message.png"));
         fonPoppupMessag.setBounds(60, 68, 90, 50);
         fonPoppupMessag.setVisible(false);
         add(fonPoppupMessag, Integer.valueOf(3));
 
-        fonPoppupMessagNO = new JLabel(new ImageIcon("src\\image\\search\\MessageNo.png"));
+        fonPoppupMessagNO = new JLabel(new ImageIcon(urlJavaTicks.getS()+"src\\image\\search\\MessageNo.png"));
         fonPoppupMessagNO.setBounds(120, 68, 90, 50);
         fonPoppupMessagNO.setVisible(false);
         add(fonPoppupMessagNO, Integer.valueOf(3));
@@ -145,7 +145,7 @@ public class StandardPanel extends JPanel implements MouseListener {
         panelAdd.add(newNameZametka);
 
         // Кнопка создания заметки
-        newAddZametka = new JButton(new ImageIcon("src\\image\\Navigation\\b1.png"));
+        newAddZametka = new JButton(new ImageIcon(urlJavaTicks.getS()+"src\\image\\Navigation\\b1.png"));
         newAddZametka.setText("добавить");
         newAddZametka.setForeground(Color.LIGHT_GRAY);
         newAddZametka.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -175,7 +175,7 @@ public class StandardPanel extends JPanel implements MouseListener {
         panelOpen.setVisible(false);
 
         // Кнопка открытия
-        openZametka = new JButton(new ImageIcon("src\\image\\Navigation\\b1.png"));
+        openZametka = new JButton(new ImageIcon(urlJavaTicks.getS()+"src\\image\\Navigation\\b1.png"));
         openZametka.setText("открыть");
         openZametka.setForeground(Color.LIGHT_GRAY);
         openZametka.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -223,7 +223,7 @@ public class StandardPanel extends JPanel implements MouseListener {
 
 // Инициализировать и добавить в панель кнопки задач
         // кнопка закрытия 
-        b1 = new JButton("Выход", new ImageIcon("src\\image\\Navigation\\b1.png"));
+        b1 = new JButton("Выход", new ImageIcon(urlJavaTicks.getS()+"src\\image\\Navigation\\b1.png"));
         b1.setVerticalTextPosition(JButton.CENTER);
         b1.setHorizontalTextPosition(JButton.CENTER);
         b1.setBounds(405, 15, 65, 20);
@@ -239,7 +239,7 @@ public class StandardPanel extends JPanel implements MouseListener {
         add(b1, Integer.valueOf(3));
         repaint();
 
-        b2 = new JButton("История", new ImageIcon("src\\image\\Navigation\\b1.png"));
+        b2 = new JButton("История", new ImageIcon(urlJavaTicks.getS()+"src\\image\\Navigation\\b1.png"));
         b2.setVerticalTextPosition(JButton.CENTER);
         b2.setHorizontalTextPosition(JButton.CENTER);
         b2.setBounds(340, 15, 65, 20);
@@ -252,7 +252,7 @@ public class StandardPanel extends JPanel implements MouseListener {
         add(b2, Integer.valueOf(3));
         repaint();
 
-        b3 = new JButton("Опции", new ImageIcon("src\\image\\Navigation\\b1.png"));
+        b3 = new JButton("Опции", new ImageIcon(urlJavaTicks.getS()+"src\\image\\Navigation\\b1.png"));
         b3.setVerticalTextPosition(JButton.CENTER);
         b3.setHorizontalTextPosition(JButton.CENTER);
         b3.setBounds(285, 15, 65, 20);
@@ -265,7 +265,7 @@ public class StandardPanel extends JPanel implements MouseListener {
         add(b3, Integer.valueOf(3));
         repaint();
 
-        b4 = new JButton("редактор", new ImageIcon("src\\image\\Navigation\\b1.png"));
+        b4 = new JButton("редактор", new ImageIcon(urlJavaTicks.getS()+"src\\image\\Navigation\\b1.png"));
         b4.setVerticalTextPosition(JButton.CENTER);
         b4.setHorizontalTextPosition(JButton.CENTER);
         b4.setBounds(220, 15, 65, 20);
@@ -278,7 +278,7 @@ public class StandardPanel extends JPanel implements MouseListener {
         add(b4, Integer.valueOf(3));
         repaint();
 
-        b5 = new JButton("открыть", new ImageIcon("src\\image\\Navigation\\b1.png"));
+        b5 = new JButton("открыть", new ImageIcon(urlJavaTicks.getS()+"src\\image\\Navigation\\b1.png"));
         b5.setVerticalTextPosition(JButton.CENTER);
         b5.setHorizontalTextPosition(JButton.CENTER);
         b5.setBounds(150, 15, 65, 20);
@@ -291,7 +291,7 @@ public class StandardPanel extends JPanel implements MouseListener {
         add(b5, Integer.valueOf(3));
         repaint();
 
-        b6 = new JButton("создать", new ImageIcon("src\\image\\Navigation\\b1.png"));
+        b6 = new JButton("создать", new ImageIcon(urlJavaTicks.getS()+"src\\image\\Navigation\\b1.png"));
         b6.setVerticalTextPosition(JButton.CENTER);
         b6.setHorizontalTextPosition(JButton.CENTER);
         b6.setToolTipText("Добавить новую заметку");
@@ -305,7 +305,7 @@ public class StandardPanel extends JPanel implements MouseListener {
         add(b6, Integer.valueOf(3));
         repaint();
 
-        b7 = new JButton("Домой", new ImageIcon("src\\image\\Navigation\\b1.png"));
+        b7 = new JButton("Домой", new ImageIcon(urlJavaTicks.getS()+"src\\image\\Navigation\\b1.png"));
         b7.setVerticalTextPosition(JButton.CENTER);
         b7.setHorizontalTextPosition(JButton.CENTER);
         b7.setBounds(15, 15, 65, 20);
@@ -319,14 +319,14 @@ public class StandardPanel extends JPanel implements MouseListener {
         repaint();
 
         // Заполнить список иконками
-        listIcon.add(new ImageIcon("src\\image\\Navigation\\fon.png"));
-        listIcon.add(new ImageIcon("src\\image\\Navigation\\fon1.png"));
-        listIcon.add(new ImageIcon("src\\image\\Navigation\\fon2.png"));
-        listIcon.add(new ImageIcon("src\\image\\Navigation\\fon3.png"));
-        listIcon.add(new ImageIcon("src\\image\\Navigation\\fon4.png"));
-        listIcon.add(new ImageIcon("src\\image\\Navigation\\fon5.png"));
-        listIcon.add(new ImageIcon("src\\image\\Navigation\\fon6.png"));
-        listIcon.add(new ImageIcon("src\\image\\Navigation\\fon7.png"));
+        listIcon.add(new ImageIcon(urlJavaTicks.getS()+"src\\image\\Navigation\\fon.png"));
+        listIcon.add(new ImageIcon(urlJavaTicks.getS()+"src\\image\\Navigation\\fon1.png"));
+        listIcon.add(new ImageIcon(urlJavaTicks.getS()+"src\\image\\Navigation\\fon2.png"));
+        listIcon.add(new ImageIcon(urlJavaTicks.getS()+"src\\image\\Navigation\\fon3.png"));
+        listIcon.add(new ImageIcon(urlJavaTicks.getS()+"src\\image\\Navigation\\fon4.png"));
+        listIcon.add(new ImageIcon(urlJavaTicks.getS()+"src\\image\\Navigation\\fon5.png"));
+        listIcon.add(new ImageIcon(urlJavaTicks.getS()+"src\\image\\Navigation\\fon6.png"));
+        listIcon.add(new ImageIcon(urlJavaTicks.getS()+"src\\image\\Navigation\\fon7.png"));
 
         labelPanelFon = new JLabel(listIcon.get(0));
         labelPanelFon.setBounds(10, 0, 472, 48);
@@ -341,7 +341,7 @@ public class StandardPanel extends JPanel implements MouseListener {
         setLayout(null);
 
 // Отображение количества созданных заметок
-        NumbetNameZametks = new JLabel(String.valueOf("<html><center><font size=6>Заметок:<br/><center>" + getNumberZ()), new ImageIcon("C:\\Users\\JGoder\\Pictures\\java\\ImgForProgsTicks\\OvalImage.png"), JLabel.CENTER);
+        NumbetNameZametks = new JLabel(String.valueOf("<html><center><font size=6>Заметок:<br/><center>" + getNumberZ()), new ImageIcon(urlJavaTicks.getS()+"src\\image\\OvalImage.png"), JLabel.CENTER);
         // 155x141
         NumbetNameZametks.setVerticalTextPosition(JLabel.CENTER);
         NumbetNameZametks.setHorizontalTextPosition(JLabel.CENTER);
@@ -352,7 +352,7 @@ public class StandardPanel extends JPanel implements MouseListener {
         add(NumbetNameZametks, Integer.valueOf(3));
 
 // Обложка фона      
-        LABELFON = new JLabel(new ImageIcon("src\\image\\StartFonImage.png"));
+        LABELFON = new JLabel(new ImageIcon(urlJavaTicks.getS()+"src\\image\\StartFonImage.png"));
         LABELFON.setBounds(0, 0, 495, 495);
         add(LABELFON, Integer.valueOf(3));
     }

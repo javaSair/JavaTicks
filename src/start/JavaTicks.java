@@ -24,6 +24,13 @@ import javax.swing.SwingUtilities;
 
 public class JavaTicks extends JFrame {
 
+   private final String S = "../";  // для jar
+//   private  String S = "";             // для IDE
+   String getS(){
+       return S;
+   }
+   
+   
     private static Path path;
     FrameTicks frameTicks;
     StandardPanel urlStandardPanel;
@@ -90,22 +97,22 @@ public class JavaTicks extends JFrame {
 
     public JavaTicks() {
 
-        IcoMap.put("txt", new ImageIcon("src\\image\\tipFile\\txtTip.png"));
-        IcoMap.put("ai", new ImageIcon("src\\image\\tipFile\\aiTip.png"));
-        IcoMap.put("class", new ImageIcon("src\\image\\tipFile\\classTip.png"));
-        IcoMap.put("doc", new ImageIcon("src\\image\\tipFile\\docTip.png"));
-        IcoMap.put("eps", new ImageIcon("src\\image\\tipFile\\epsTip.png"));
-        IcoMap.put("gif", new ImageIcon("src\\image\\tipFile\\gifTip.png"));
-        IcoMap.put("java", new ImageIcon("src\\image\\tipFile\\javaTip.png"));
-        IcoMap.put("jpeg", new ImageIcon("src\\image\\tipFile\\jpegTip.png"));
-        IcoMap.put("none", new ImageIcon("src\\image\\tipFile\\noneTip.png"));
-        IcoMap.put("pdf", new ImageIcon("src\\image\\tipFile\\pdfTip.png"));
-        IcoMap.put("png", new ImageIcon("src\\image\\tipFile\\pngTip.png"));
-        IcoMap.put("ppt", new ImageIcon("src\\image\\tipFile\\pptTip.png"));
-        IcoMap.put("psd", new ImageIcon("src\\image\\tipFile\\psdTip.png"));
-        IcoMap.put("rar", new ImageIcon("src\\image\\tipFile\\rarTip.png"));
-        IcoMap.put("xml", new ImageIcon("src\\image\\tipFile\\xmlTip.png"));
-        IcoMap.put("zip", new ImageIcon("src\\image\\tipFile\\zipTip.png"));
+        IcoMap.put("txt", new ImageIcon(S + "src\\image\\tipFile\\txtTip.png"));
+        IcoMap.put("ai", new ImageIcon(S + "src\\image\\tipFile\\aiTip.png"));
+        IcoMap.put("class", new ImageIcon(S+"src\\image\\tipFile\\classTip.png"));
+        IcoMap.put("doc", new ImageIcon(S+"src\\image\\tipFile\\docTip.png"));
+        IcoMap.put("eps", new ImageIcon(S+"src\\image\\tipFile\\epsTip.png"));
+        IcoMap.put("gif", new ImageIcon(S+"src\\image\\tipFile\\gifTip.png"));
+        IcoMap.put("java", new ImageIcon(S+"src\\image\\tipFile\\javaTip.png"));
+        IcoMap.put("jpeg", new ImageIcon(S+"src\\image\\tipFile\\jpegTip.png"));
+        IcoMap.put("none", new ImageIcon(S+"src\\image\\tipFile\\noneTip.png"));
+        IcoMap.put("pdf", new ImageIcon(S+"src\\image\\tipFile\\pdfTip.png"));
+        IcoMap.put("png", new ImageIcon(S+"src\\image\\tipFile\\pngTip.png"));
+        IcoMap.put("ppt", new ImageIcon(S+"src\\image\\tipFile\\pptTip.png"));
+        IcoMap.put("psd", new ImageIcon(S+"src\\image\\tipFile\\psdTip.png"));
+        IcoMap.put("rar", new ImageIcon(S+"src\\image\\tipFile\\rarTip.png"));
+        IcoMap.put("xml", new ImageIcon(S+"src\\image\\tipFile\\xmlTip.png"));
+        IcoMap.put("zip", new ImageIcon(S+"src\\image\\tipFile\\zipTip.png"));
 
         // Получить количество существующих заметок
         urlDirs = new Dirs(this);
@@ -115,7 +122,7 @@ public class JavaTicks extends JFrame {
         setLayout(new FlowLayout());
         setSize(495, 495);
         setLocationRelativeTo(null); // появление по середине окна
-        setIconImage(new ImageIcon("src\\image\\ICO3.png").getImage());
+        setIconImage(new ImageIcon(S+"src\\image\\ICO3.png").getImage());
 
 //Реалзовать перемещение окна         
         addMouseListener(new MouseAdapter() {

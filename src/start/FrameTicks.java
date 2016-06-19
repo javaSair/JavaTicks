@@ -49,7 +49,7 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
     private JavaTicks urlJavaTicks;
     private static ArrayList<JButton> listButtonAddFile = new ArrayList<>();
     private FileDialog fileDialog;
-    private ImageIcon imageIco = new ImageIcon("src\\image\\newFile.png");
+    private ImageIcon imageIco = new ImageIcon("..\\src\\image\\newFile.png");
     private static JButton b;
     private JButton bAddFile;
     private JButton bAddFileText;
@@ -71,7 +71,7 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
     
     
     // Реализовать потиповое добавление иконок файлов
-    private final ImageIcon IMAGEADD = new ImageIcon("src\\image\\newFile.png");
+//    private final ImageIcon IMAGEADD = new ImageIcon(urlJavaTicks.getS()+"src\\image\\newFile.png");
 
     private static boolean flag = false; // Индикатор статуса свернуто\развернуто
 
@@ -122,11 +122,7 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
     JavaTicks getJavaTicks() {
         return urlJavaTicks;
     }
-
-    ImageIcon setImageIconTIP(String tip) {
-        return IMAGEADD;
-    }
-
+ 
 //Динамическое добавление файлов в существующую заметку   
     void setNewImageAdFile(String path) {
 
@@ -145,7 +141,7 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
                 listButtonAddFile.add(b);
                 b.setBorder(null);
                 b.setContentAreaFilled(false);
-                b.setBounds(getWidthAddFile(), 75, 51, 66);
+                b.setBounds(getWidthAddFile()+5, 75, 51, 66);
                 add(b, Integer.valueOf(2));
                 repaint();
 
@@ -165,7 +161,7 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
             listButtonAddFile.add(b);
             b.setBorder(null);
             b.setContentAreaFilled(false);
-            b.setBounds(getWidthAddFile(), 75, 55, 66);
+            b.setBounds(getWidthAddFile()+5, 75, 55, 66);
             add(b, Integer.valueOf(2));
             repaint();
 
@@ -238,7 +234,7 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
    add(nameZametki, Integer.valueOf(8));//-------------------------------------------------------------------------
 
 // Метка-кнопка свертывания развертывания списка файлов (в левом верхнем углу)
-        labelJavaICO = new JButton(new ImageIcon("src\\image\\FileTipICO.png"));
+        labelJavaICO = new JButton(new ImageIcon(urlJavaTicks.getS()+"src\\image\\FileTipICO.png"));
         labelJavaICO.setBorder(null);
         labelJavaICO.setContentAreaFilled(false);
         labelJavaICO.setBounds(0, 75, 56, 64);
@@ -248,7 +244,7 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
         add(labelJavaICO, Integer.valueOf(8));
 
 // Кнопка добавления файла
-        bAddFile = new JButton(new ImageIcon("src\\image\\newButton.png"));
+        bAddFile = new JButton(new ImageIcon(urlJavaTicks.getS()+"src\\image\\newButton.png"));
         bAddFile.setToolTipText("Добавить файл");
         bAddFile.setBounds(getWidthAddFile() +90, 70, 38, 23);
         bAddFile.setBorder(null);
@@ -274,7 +270,7 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
         add(bAddFile, Integer.valueOf(8));
 
 // Кнопки добавления из файла 
-        bAddFileText = new JButton(new ImageIcon("src\\image\\ReadFiles.png"));
+        bAddFileText = new JButton(new ImageIcon(urlJavaTicks.getS()+"src\\image\\ReadFiles.png"));
         bAddFileText.setToolTipText("Прочитать из файла");
         bAddFileText.setBounds(-80, 305, 100, 25);
         bAddFileText.setBorder(null);
@@ -284,7 +280,7 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
         add(bAddFileText, Integer.valueOf(2));
 
         // Кнопка добавления из файла 
-        bAddFileText2 = new JButton(new ImageIcon("src\\image\\ReadFiles.png"));
+        bAddFileText2 = new JButton(new ImageIcon(urlJavaTicks.getS()+"src\\image\\ReadFiles.png"));
         bAddFileText2.setBounds(-80, 255, 100, 25);
         bAddFileText2.setBorder(null);
         bAddFileText2.setContentAreaFilled(false);
@@ -293,7 +289,7 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
         add(bAddFileText2, Integer.valueOf(8));
 
         // Кнопка добавления из файла 
-        bAddFileText3 = new JButton(new ImageIcon("src\\image\\ReadFiles.png"));
+        bAddFileText3 = new JButton(new ImageIcon(urlJavaTicks.getS()+"src\\image\\ReadFiles.png"));
         bAddFileText3.setBounds(-80, 280, 100, 25);
         bAddFileText3.setBorder(null);
         bAddFileText3.setContentAreaFilled(false);
@@ -353,7 +349,7 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
 //        add(scrolPane, Integer.valueOf(3));
 
 // Обложка фона      
-        LABELFON = new JLabel(new ImageIcon("src\\image\\StartFonImage.png"));
+        LABELFON = new JLabel(new ImageIcon(urlJavaTicks.getS()+"src\\image\\StartFonImage.png"));
         LABELFON.setBounds(0, 0, 495, 495);
        add(LABELFON, Integer.valueOf(0));
 
@@ -383,7 +379,7 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
                                         } else if (x == listButtonAddFile.size() - 1) {
                                             bAddFile.setBounds((getWidthAddFile() + 40 - y) - 15, 70, 38, 23);
                                         }
-                                        listButtonAddFile.get(x).setBounds(x * 50 + 55 - y, 75, 55, 66);
+                                        listButtonAddFile.get(x).setBounds(x * 55 + 55 - y, 75, 55, 66);
                                         listButtonAddFile.get(x).repaint();
 //                                        System.out.println(x);
                                     }
@@ -405,7 +401,7 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
                             try {
                                 for (int x = 0; x < listButtonAddFile.size(); x++) {
                                     i--;
-                                    for (int y = 0; y < ((listButtonAddFile.size() - 1) - x) * 50 + 65; y += 10) {
+                                    for (int y = 0; y < ((listButtonAddFile.size() - 1) - x) * 60 + 65; y += 10) {
                                         Thread.sleep(10);
                                         if (i < 0) {
                                             break metka2;

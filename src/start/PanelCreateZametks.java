@@ -47,17 +47,17 @@ public class PanelCreateZametks extends JPanel implements MouseListener {
         String strong = path.toString();
 
         //Назание заметки
-        name = new JLabel(strong.substring(strong.lastIndexOf("\\") + 1), new ImageIcon("src\\image\\Navigation\\CreatePanel\\fonName.png"), JLabel.CENTER);
+        name = new JLabel(strong.substring(strong.lastIndexOf("\\") + 1), new ImageIcon("..\\src\\image\\Navigation\\CreatePanel\\fonName.png"), JLabel.CENTER);
 
         //кнопка удаления заметки
-        dell = new JButton(new ImageIcon("src\\image\\Navigation\\CreatePanel\\ico\\delete.png"));
+        dell = new JButton(new ImageIcon("..\\src\\image\\Navigation\\CreatePanel\\ico\\delete.png"));
 
 
         //кнопка открытия заметки    
-        create = new JButton(new ImageIcon("src\\image\\Navigation\\CreatePanel\\ico\\process.png"));
+        create = new JButton(new ImageIcon("..\\src\\image\\Navigation\\CreatePanel\\ico\\process.png"));
 
         // кнопка открытия папки заметки
-        open = new JButton(new ImageIcon("src\\image\\Navigation\\CreatePanel\\ico\\folder.png"));
+        open = new JButton(new ImageIcon("..\\src\\image\\Navigation\\CreatePanel\\ico\\folder.png"));
   
         
         
