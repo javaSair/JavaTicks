@@ -131,7 +131,7 @@ public class JavaTicks extends JFrame {
         setSize(495, 495);
         setLocationRelativeTo(null); // появление по середине окна
         setIconImage(new ImageIcon(S+"src\\image\\ICO3.png").getImage());
-
+       
 //Реалзовать перемещение окна         
         addMouseListener(new MouseAdapter() {
 
@@ -153,7 +153,7 @@ public class JavaTicks extends JFrame {
         frameTicks = new FrameTicks(this);
         setContentPane(urlStandardPanel = new StandardPanel(this));
         urlPanelBlockZametok = new PanelBlockZametok(this);
-
+ 
         setVisible(true);
         repaint();
     }

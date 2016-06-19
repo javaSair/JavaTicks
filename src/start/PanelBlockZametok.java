@@ -109,21 +109,21 @@ public class PanelBlockZametok extends JPanel {
    panelZametki.setLayout(null);
       panelZametki.setBounds(20, 150, 450, 330);
       panelZametki.setSize(450, 330+(listPanel.size()*20));
-      panelZametki.setBackground(Color.BLACK);
-     panelZametki.setBorder(null);
+      panelZametki.setBackground(new Color(34, 35, 35));
+     panelZametki.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
      panelZametki.setPreferredSize(new Dimension(panelZametki.getPreferredSize().width, 330));
 //      panelZametki.setOpaque(false);
       
        scrol = new JScrollPane(panelZametki, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
        scrol.setViewportView(panelZametki);
-       scrol.getVerticalScrollBar().setMinimum(0);
-       scrol.getVerticalScrollBar().setMaximum((listPanel.size()*20));
-       scrol.getVerticalScrollBar().setVisibleAmount(10);
+//       scrol.getVerticalScrollBar().setMinimum(0);
+//       scrol.getVerticalScrollBar().setMaximum((listPanel.size()*20));
+//       scrol.getVerticalScrollBar().setVisibleAmount(10);
        
 //       scrol.add(panelZametki,Integer.valueOf(15));
-//       scrol.setBorder(null);
+       scrol.setBorder(null);
 //       scrol.setLayout(new FlowLayout());
-//       scrol.setOpaque(false);
+       scrol.setOpaque(false);
        scrol.setBounds(20, 150, 450, 330);
         add(scrol);
         

@@ -336,7 +336,7 @@ public class StandardPanel extends JPanel implements MouseListener {
         listIcon.add(new ImageIcon(urlJavaTicks.getS()+"src\\image\\Navigation\\fon7.png"));
 
         labelPanelFon = new JLabel(listIcon.get(0));
-        labelPanelFon.setBounds(10, 0, 472, 48);
+        labelPanelFon.setBounds(10, 0, 475, 48);
         labelPanelFon.setBorder(null);
         labelPanelFon.setOpaque(false);
         labelPanelFon.addMouseListener(this);
