@@ -78,7 +78,7 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
     
     
     void clearListButtonAddFile(){
-        listButtonAddFile.clear();
+        listButtonAddFile = new ArrayList<>();
     }
     
     // Сделать добавление файла активным|неактивным
@@ -130,7 +130,7 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
 //Динамическое добавление файлов в существующую заметку   
     void setNewImageAdFile(String path) {
 
-        if (listButtonAddFile.size() >7) {
+        if (listButtonAddFile.size() > 6) {
                bAddFile.setVisible(false);
         } else {
 
@@ -140,7 +140,7 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
             } else {
 
                 urlNewAnimatedIconFile.copyFile(path);
-                b = new JButton(setImageIconTIP(path.substring(path.length() - 3))); //Иконка  Расширение файла
+                b = new JButton(urlJavaTicks.GetFileTipICO(path.substring(path.length() - 3))); //Иконка  Расширение файла
                 b.setToolTipText(path.substring(path.lastIndexOf("\\") + 1));  // подсказка
                 listButtonAddFile.add(b);
                 b.setBorder(null);
@@ -160,12 +160,12 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
         if (listButtonAddFile.size() > 6) {
             bAddFile.setVisible(false);
         } else {
-            b = new JButton(setImageIconTIP(path.substring(path.length() - 3))); //Иконка  Расширение файла
+            b = new JButton(urlJavaTicks.GetFileTipICO(path.substring(path.length() - 3))); //Иконка  Расширение файла
             b.setToolTipText(path.substring(path.lastIndexOf("\\") + 1));  // подсказка
             listButtonAddFile.add(b);
             b.setBorder(null);
             b.setContentAreaFilled(false);
-            b.setBounds(getWidthAddFile(), 75, 51, 66);
+            b.setBounds(getWidthAddFile(), 75, 55, 66);
             add(b, Integer.valueOf(2));
             repaint();
 
@@ -194,7 +194,7 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
                     return;
                 }
                 bAddFile.setVisible(false);
-                bAddFile.setBounds((getWidthAddFile() + 60) - 15, 85, 38, 23);
+                bAddFile.setBounds((getWidthAddFile() + 40), 70, 38, 23);
                 bAddFile.setVisible(true);
                 LABELFON.repaint();
             }
@@ -206,7 +206,7 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
     int getWidthAddFile() {
         // 47 это начальная точка!
         // 66 ширина иконки  (-4 отступ)
-        return ((listButtonAddFile.size() - 1) * 50) + 55;
+        return ((listButtonAddFile.size() - 1) * 55) + 55;
     }
 
 // 
@@ -250,7 +250,7 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
 // Кнопка добавления файла
         bAddFile = new JButton(new ImageIcon("src\\image\\newButton.png"));
         bAddFile.setToolTipText("Добавить файл");
-        bAddFile.setBounds(getWidthAddFile() + 45, 85, 38, 23);
+        bAddFile.setBounds(getWidthAddFile() +90, 70, 38, 23);
         bAddFile.setBorder(null);
         bAddFile.setContentAreaFilled(false);
         bAddFile.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -381,9 +381,9 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
                                         if (i < 0) {
                                             break metka;
                                         } else if (x == listButtonAddFile.size() - 1) {
-                                            bAddFile.setBounds((getWidthAddFile() + 60 - y) - 15, 85, 38, 23);
+                                            bAddFile.setBounds((getWidthAddFile() + 40 - y) - 15, 70, 38, 23);
                                         }
-                                        listButtonAddFile.get(x).setBounds(x * 50 + 55 - y, 75, 51, 66);
+                                        listButtonAddFile.get(x).setBounds(x * 50 + 55 - y, 75, 55, 66);
                                         listButtonAddFile.get(x).repaint();
 //                                        System.out.println(x);
                                     }
@@ -394,9 +394,12 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
                             }
                         }
                         bAddFile.setEnabled(false);
+                        bAddFile.setVisible(false);
                     } else { // В противном случае развернуть
                         int i = listButtonAddFile.size();
-
+                        if(i<7){
+                            bAddFile.setVisible(true);
+                        }
                         metka2:
                         while (true) {
                             try {
@@ -407,9 +410,9 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
                                         if (i < 0) {
                                             break metka2;
                                         } else if (x == 0) {
-                                            bAddFile.setBounds((y + 60) - 15, 85, 38, 23);
+                                            bAddFile.setBounds((y + 60) - 30, 70, 38, 23);
                                         }
-                                        listButtonAddFile.get((listButtonAddFile.size() - 1) - x).setBounds(y, 75, 51, 66);
+                                        listButtonAddFile.get((listButtonAddFile.size() - 1) - x).setBounds(y, 75, 55, 66);
                                         listButtonAddFile.get((listButtonAddFile.size() - 1) - x).repaint();
                                         System.out.println(listButtonAddFile.size() - 1 - x);
                                     }
