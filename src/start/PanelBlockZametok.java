@@ -140,7 +140,7 @@ public class PanelBlockZametok extends JPanel {
         
         
  // Обложка фона      
-        LABELFON = new JLabel(new ImageIcon(urlJavaTicks.getS()+"src\\image\\StartFonImage.png"));
+        LABELFON = new JLabel(new ImageIcon(JavaTicks.class.getResource(urlJavaTicks.getS()+"/image/StartFonImage.png")));
         LABELFON.setBounds(0, 0, 495, 495);
         add(LABELFON, Integer.valueOf(3));       
         

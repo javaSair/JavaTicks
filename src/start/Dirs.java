@@ -35,6 +35,7 @@ public class Dirs {
 
             } else { // Если директория существует прочитать  все поддиректории в динамический список
 
+                r.clearListLabel(); // очистить список заметок
                 DirectoryStream<Path> dir = Files.newDirectoryStream(path);
 
                 for (Path x : dir) {

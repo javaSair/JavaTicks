@@ -58,11 +58,12 @@ public class LoadingZametki {
                          if (count++ > 6) {// Блок проверки количества файлов в заметке
                             urlJavaTicks.frameTicks.setVisibaldAdd(false); // Скрыть кнопку добавления файлов
                         }
+                         
                         
 //                        count = urlJavaTicks.frameTicks.getLenghtList() < 6;
                     }
                     urlJavaTicks.frameTicks.setActivatedAdd(true);
-
+                    urlJavaTicks.frameTicks.getbAddFile2();
             
                 } catch (IOException ex) {
                     System.err.println(ex);
