@@ -119,6 +119,15 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
                 b = new JButton(urlJavaTicks.GetFileTipICO(path.substring(path.length() - 3))); //Иконка  Расширение файла
                 b.setToolTipText(path.substring(path.lastIndexOf("\\") + 1));  // подсказка
                 listButtonAddFile.add(b);
+                b.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                b.addActionListener((e)->{
+                    Runtime r = Runtime.getRuntime();
+                    try {
+                         Process p = r.exec("explorer.exe "+path);
+                    } catch (IOException ex) {
+                        Logger.getLogger(FrameTicks.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                });
                 b.setBorder(null);
                 b.setContentAreaFilled(false);
                 b.setBounds(getWidthAddFile() + (listButtonAddFile.size() * 5), 75, 51, 66);
@@ -141,6 +150,15 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
             b.setToolTipText(path.substring(path.lastIndexOf("\\") + 1));  // подсказка
             listButtonAddFile.add(b);
             b.setBorder(null);
+             b.addActionListener((e)->{
+                    Runtime r = Runtime.getRuntime();
+                    try {
+                        Process p = r.exec("explorer.exe "+path);
+                    } catch (IOException ex) {
+                        Logger.getLogger(FrameTicks.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                });
+              b.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             b.setContentAreaFilled(false);
             b.setBounds(getWidthAddFile() + 20, 75, 55, 66); 
             add(b, Integer.valueOf(2));
