@@ -75,7 +75,7 @@ public class PanelCreateZametks extends JPanel implements MouseListener {
 //         setBorder(BorderFactory.createEtchedBorder());
       setBounds(getW(), getH(), 450, 20);
         
-        System.out.println("path "+path);
+//        System.out.println("path "+path);
      
         String strong = path.toString();
 
@@ -161,7 +161,7 @@ public class PanelCreateZametks extends JPanel implements MouseListener {
             }
           flag = p.toFile().delete();
         } 
-        System.out.println("Удален? "+flag);
+//        System.out.println("Удален? "+flag);
     }
     
     
@@ -182,22 +182,30 @@ public class PanelCreateZametks extends JPanel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println(path.toAbsolutePath().toString());
+//        System.out.println(path.toAbsolutePath().toString());
   
         
         if(e.getSource().equals(dell)){
-          
             delete(path);
-                 
 //            urlJavaTicks.frameTicks.setNameZametki(path.toAbsolutePath().toString());
             Dirs d = urlJavaTicks.getDirs();
-            d.createDir();
-            
+            d.createDir(); 
              urlJavaTicks.geturlPanelBlockZametok().repaintSpisok();
              PanelBlockZametok  p = new PanelBlockZametok(urlJavaTicks);
-             p.repaintSpisok();
-            
-            
+             p.repaintSpisok(); 
+        }else if(e.getSource().equals(create)){
+            String s = path.toString().substring(path.toString().lastIndexOf("\\")+1);
+            //urlJavaTicks.getStandardPanel().getLoadingZametki().runScan(openNameZametka.getText());
+            urlJavaTicks.getStandardPanel().getLoadingZametki().runScan(s);
+            urlJavaTicks.setContentPane(urlJavaTicks.frameTicks);
+            urlJavaTicks.revalidate();
+        } else if(e.getSource().equals(open)){
+            Runtime r = Runtime.getRuntime();
+            try {
+                Process p = r.exec("explorer.exe "+path);
+            } catch (IOException ex) {
+                Logger.getLogger(PanelCreateZametks.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
     

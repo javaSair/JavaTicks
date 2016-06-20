@@ -35,9 +35,9 @@ public class LoadingZametki {
     }
 
     public void runScan(String nameZametki) {
-        System.out.println(nameZametki);
+//        System.out.println(nameZametki);
         String ticks = urlJavaTicks.getNameDefaultDir() + "\\" + nameZametki;
-        System.out.println(ticks);
+//        System.out.println(ticks);
         if (Files.exists(Paths.get(ticks)) == true) { // Заметка существует?
              
             urlJavaTicks.frameTicks.setNameZametki(nameZametki);
@@ -79,7 +79,8 @@ public class LoadingZametki {
                 } else { // в противном случае прочитать его содержимое
                     try (FileInputStream fileRead = new FileInputStream(Paths.get(ticks + "\\" + ticks.substring(ticks.lastIndexOf("\\") + 1) + ".txt").toAbsolutePath().toString())) {
 
-                        String codingRead = "Windows-1251";
+//                        String codingRead = "Windows-1251";
+                        String codingRead = "UTF-8";
 
                         Reader r = new BufferedReader(new InputStreamReader(fileRead, codingRead));
 
@@ -90,7 +91,7 @@ public class LoadingZametki {
                             contentTextBlock += (char) i;
                         }
 
-                        System.out.println(contentTextBlock);
+//                        System.out.println(contentTextBlock);
                         urlJavaTicks.frameTicks.setTextBlock(contentTextBlock);
                         urlJavaTicks.frameTicks.setNameZametki(nameZametki);
                     } catch (IOException ex) {
@@ -101,11 +102,12 @@ public class LoadingZametki {
 //            urlJavaTicks.urlStandardPanel.add(urlFrameTicks,Integer.valueOf(8));
 //             urlJavaTicks.urlStandardPanel.revalidate();
 //              urlJavaTicks.urlStandardPanel.repaint();
+                urlJavaTicks.frameTicks.setActivatedAdd(true);
                 urlJavaTicks.setContentPane(urlJavaTicks.frameTicks);
             }
 
         } else {
-            System.out.println("проверка не пройдена");
+//            System.out.println("проверка не пройдена");
             urlurlStandardPanel.setVisibalMessage(urlurlStandardPanel.fonPoppupMessagNO);
         }
 

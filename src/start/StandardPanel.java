@@ -78,7 +78,7 @@ public class StandardPanel extends JPanel implements MouseListener {
                     l.setVisible(false);
                     return;
                 } catch (InterruptedException ex) {
-                    System.out.println("Exception sleep class Dirs");
+                    System.err.println("Exception sleep class Dirs");
                 }
             }
         };
@@ -308,6 +308,7 @@ public class StandardPanel extends JPanel implements MouseListener {
         b6.setContentAreaFilled(false);
         b6.addMouseListener(this);
         b6.setActionCommand("b6");
+         b6.addActionListener((e)->{urlFrameTicks.setVisibalButtonSave(true);});
         b6.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         add(b6, Integer.valueOf(3));
         repaint();

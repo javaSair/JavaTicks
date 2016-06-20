@@ -277,6 +277,7 @@ public class PanelTopMenu extends JPanel implements MouseListener{
         b6.setContentAreaFilled(false);
         b6.addMouseListener(this);
         b6.setActionCommand("b6");
+//        b6.addActionListener((e)->{urlFrameTicks.setVisibalButtonSave(true);});
         b6.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         add(b6, Integer.valueOf(6));
         repaint();
@@ -292,7 +293,7 @@ public class PanelTopMenu extends JPanel implements MouseListener{
         b7.setActionCommand("b7");
         b7.addActionListener((e)->{
             
-            System.out.println("b7");
+//            System.out.println("b7");
             updateCountLabek();
             urlJavaTicks.setContentPane(urlJavaTicks.getStandardPanel());
             urlJavaTicks.revalidate();

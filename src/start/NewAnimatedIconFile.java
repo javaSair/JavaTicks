@@ -56,7 +56,7 @@ public class NewAnimatedIconFile {
 //            Files.createDirectories(Paths.get(zametka)); // Создать директорию заметки если она не существует
             
             nameFile =  urlFrameTicks.getJavaTicks().getNameDefaultDir()+ "\\" + urlFrameTicks.getNameZametki() + "\\Files\\"+s.substring(s.lastIndexOf("\\")+1);
-            System.out.println(nameFile);
+//            System.out.println(nameFile);
             copyFile();
            Files.copy(Paths.get(s), Paths.get(nameFile).toAbsolutePath(), StandardCopyOption.REPLACE_EXISTING);
           }      

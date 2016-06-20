@@ -41,7 +41,7 @@ public class PanelBlockZametok extends JPanel {
             public void run() {
                 listPanel.clear();
                 for(int i=0;i<urlJavaTicks.getListSize();i++){
-                    System.out.println(i);
+//                    System.out.println(i);
                     
                     PanelCreateZametks p = new PanelCreateZametks(urlJavaTicks, urlJavaTicks.getListZametki().get(i), i*20);
                     p.setBorder(null);
