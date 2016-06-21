@@ -137,7 +137,7 @@ public class StandardPanel extends JPanel implements MouseListener {
         newNameZametka.setForeground(new Color(195, 195, 195));
         newNameZametka.addMouseListener(this);
         newNameZametka.addActionListener((e) -> {
-            urlJavaTicks.frameTicks.setNameZametki(newNameZametka.getText());
+            urlJavaTicks.getFrameTicks().setNameZametki(newNameZametka.getText());
             Dirs d = urlJavaTicks.getDirs();
             d.createDir(newNameZametka.getText());
             
@@ -154,7 +154,7 @@ public class StandardPanel extends JPanel implements MouseListener {
         newAddZametka.setBounds(100, 0, 80, 20);
         newAddZametka.addActionListener((e) -> {
 
-            urlJavaTicks.frameTicks.setNameZametki(newNameZametka.getText());
+            urlJavaTicks.getFrameTicks().setNameZametki(newNameZametka.getText());
             Dirs d = urlJavaTicks.getDirs();
             d.createDir(newNameZametka.getText());
 
@@ -344,7 +344,7 @@ public class StandardPanel extends JPanel implements MouseListener {
         add(labelPanelFon, Integer.valueOf(3));
 
         this.urlJavaTicks = urlJavaTicks;
-        urlFrameTicks = urlJavaTicks.frameTicks;
+        urlFrameTicks = urlJavaTicks.getFrameTicks();
         setSize(495, 495);
         setLayout(null);
 

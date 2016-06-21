@@ -40,30 +40,30 @@ public class LoadingZametki {
 //        System.out.println(ticks);
         if (Files.exists(Paths.get(ticks)) == true) { // Заметка существует?
              
-            urlJavaTicks.frameTicks.setNameZametki(nameZametki);
+            urlJavaTicks.getFrameTicks().setNameZametki(nameZametki);
             if (Files.exists(Paths.get(urlJavaTicks.getNameDefaultDir() + "\\" + nameZametki + "\\Files"))) {
                 try {
                     //                urlJavaTicks.frameTicks.animationScrolFile();
-                    urlJavaTicks.frameTicks.setVisibleFileList(false);
+                    urlJavaTicks.getFrameTicks().setVisibleFileList(false);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(LoadingZametki.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                urlJavaTicks.frameTicks.clearListButtonAddFile(); // Очистить коллекчию
+                urlJavaTicks.getFrameTicks().clearListButtonAddFile(); // Очистить коллекчию
               
                 try {
                     DirectoryStream<Path> dir = Files.newDirectoryStream(Paths.get(urlJavaTicks.getNameDefaultDir() + "\\" + nameZametki + "\\Files"));
                     int count = 0;
                     for (Path x : dir) {
-                        urlJavaTicks.frameTicks.setImageAdFile(x.toAbsolutePath().toString()); // Передать существующий файл
+                        urlJavaTicks.getFrameTicks().setImageAdFile(x.toAbsolutePath().toString()); // Передать существующий файл
                          if (count++ > 6) {// Блок проверки количества файлов в заметке
-                            urlJavaTicks.frameTicks.setVisibaldAdd(false); // Скрыть кнопку добавления файлов
+                            urlJavaTicks.getFrameTicks().setVisibaldAdd(false); // Скрыть кнопку добавления файлов
                         }
                          
                         
 //                        count = urlJavaTicks.frameTicks.getLenghtList() < 6;
                     }
-                    urlJavaTicks.frameTicks.setActivatedAdd(true);
-                    urlJavaTicks.frameTicks.getbAddFile2();
+                    urlJavaTicks.getFrameTicks().setActivatedAdd(true);
+                    urlJavaTicks.getFrameTicks().getbAddFile2();
             
                 } catch (IOException ex) {
                     System.err.println(ex);
@@ -92,8 +92,8 @@ public class LoadingZametki {
                         }
 
 //                        System.out.println(contentTextBlock);
-                        urlJavaTicks.frameTicks.setTextBlock(contentTextBlock);
-                        urlJavaTicks.frameTicks.setNameZametki(nameZametki);
+                        urlJavaTicks.getFrameTicks().setTextBlock(contentTextBlock);
+                        urlJavaTicks.getFrameTicks().setNameZametki(nameZametki);
                     } catch (IOException ex) {
                         Logger.getLogger(LoadingZametki.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -102,8 +102,8 @@ public class LoadingZametki {
 //            urlJavaTicks.urlStandardPanel.add(urlFrameTicks,Integer.valueOf(8));
 //             urlJavaTicks.urlStandardPanel.revalidate();
 //              urlJavaTicks.urlStandardPanel.repaint();
-                urlJavaTicks.frameTicks.setActivatedAdd(true);
-                urlJavaTicks.setContentPane(urlJavaTicks.frameTicks);
+                urlJavaTicks.getFrameTicks().setActivatedAdd(true);
+                urlJavaTicks.setContentPane(urlJavaTicks.getFrameTicks());
             }
 
         } else {

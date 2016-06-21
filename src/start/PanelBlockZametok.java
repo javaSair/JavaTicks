@@ -82,7 +82,7 @@ public class PanelBlockZametok extends JPanel {
                 updatePreferedSize();
                 urlJavaTicks.setContentPane(urlPanelBlockZametok);
                 
-             scrol.revalidate();
+             scrol.repaint();
                urlJavaTicks.revalidate();
             }
         };

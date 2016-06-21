@@ -197,7 +197,7 @@ public class PanelCreateZametks extends JPanel implements MouseListener {
             String s = path.toString().substring(path.toString().lastIndexOf("\\")+1);
             //urlJavaTicks.getStandardPanel().getLoadingZametki().runScan(openNameZametka.getText());
             urlJavaTicks.getStandardPanel().getLoadingZametki().runScan(s);
-            urlJavaTicks.setContentPane(urlJavaTicks.frameTicks);
+            urlJavaTicks.setContentPane(urlJavaTicks.getFrameTicks());
             urlJavaTicks.revalidate();
         } else if(e.getSource().equals(open)){
             Runtime r = Runtime.getRuntime();

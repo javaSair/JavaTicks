@@ -32,7 +32,7 @@ public class JavaTicks extends JFrame {
    
    
     private static Path path;
-    FrameTicks frameTicks;
+    private FrameTicks frameTicks;
     StandardPanel urlStandardPanel;
     private JTextArea text;
     private Point point;
@@ -51,6 +51,13 @@ public class JavaTicks extends JFrame {
         }
         return IcoMap.get("none");
     }
+    
+    
+    
+    FrameTicks getFrameTicks(){
+        return frameTicks;
+    }
+    
 
     /*
      Получить ссылку на экземпляр класса Dirs

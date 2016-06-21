@@ -61,7 +61,7 @@ public class PanelTopMenu extends JPanel implements MouseListener{
     
     public PanelTopMenu(JavaTicks urlJavaTicks1) {
         this.urlJavaTicks = urlJavaTicks1;
-        
+        this.urlFrameTicks = urlJavaTicks.getFrameTicks();
         setLayout(null);
         
         // Сообщение о наличии создаваемой заметки
@@ -116,15 +116,18 @@ public class PanelTopMenu extends JPanel implements MouseListener{
 //            urlJavaTicks.frameTicks.setNameZametki(newNameZametka.getText());
             Dirs d = urlJavaTicks.getDirs();
             d.createDir(newNameZametka.getText());
-            
+             urlJavaTicks.getFrameTicks().setVisibalButtonSave(true);
         });     
         newAddZametka.setBorder(null);
         newAddZametka.setContentAreaFilled(false);
         panelAdd.add(newNameZametka,Integer.valueOf(4));
-        panelAdd.setVisible(false);
         panelAdd.add(newAddZametka, Integer.valueOf(6));
-        panelAdd.add(newNameZametka,Integer.valueOf(6));
-        add(panelAdd, Integer.valueOf(3));
+        add(panelAdd, Integer.valueOf(8));
+        panelAdd.setToolTipText("panelAdd");
+        panelAdd.setVisible(false);
+        
+        
+        
         
  // Панель открытия существующей заметки  
         panelOpen= new JPanel();
@@ -132,6 +135,7 @@ public class PanelTopMenu extends JPanel implements MouseListener{
         panelOpen.setBorder(BorderFactory.createEtchedBorder());
         panelOpen.setBounds(100, 48, 180, 20);
         panelOpen.setOpaque(false);
+        panelOpen.setToolTipText("panelOpen");
         panelOpen.setVisible(false);
         
         
@@ -182,6 +186,7 @@ public class PanelTopMenu extends JPanel implements MouseListener{
 // Добавить все на понель открытия заметки
             panelOpen.add(openZametka,Integer.valueOf(6));       
             panelOpen.add(openNameZametka,Integer.valueOf(6));
+            
             add(panelOpen,Integer.valueOf(9));
 
 // Инициализировать и добавить в панель кнопки задач
@@ -275,11 +280,11 @@ public class PanelTopMenu extends JPanel implements MouseListener{
         b6.setBorder(null);
         b6.setForeground(Color.LIGHT_GRAY);
         b6.setContentAreaFilled(false);
+//        b6.setActionCommand("b6");
         b6.addMouseListener(this);
-        b6.setActionCommand("b6");
 //        b6.addActionListener((e)->{urlFrameTicks.setVisibalButtonSave(true);});
         b6.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        add(b6, Integer.valueOf(6));
+        add(b6, Integer.valueOf(8));
         repaint();
 
         b7 = new JButton("Домой", new ImageIcon(JavaTicks.class.getResource(urlJavaTicks1.getS()+"/image/Navigation/b1.png")));
@@ -295,6 +300,8 @@ public class PanelTopMenu extends JPanel implements MouseListener{
             
 //            System.out.println("b7");
             updateCountLabek();
+            urlJavaTicks.getStandardPanel().setVisiblePanelAdd(false);
+            urlJavaTicks.getStandardPanel().setVisiblePanelOpen(false);
             urlJavaTicks.setContentPane(urlJavaTicks.getStandardPanel());
             urlJavaTicks.revalidate();
         });
@@ -327,10 +334,17 @@ public class PanelTopMenu extends JPanel implements MouseListener{
             newNameZametka.selectAll();
         } else if (e.getSource().equals(b6)) { //Создать заметку
             if(!panelAdd.isVisible()){
-                setVisibalButtons(panelAdd, true);
-            newNameZametka.selectAll();
+                
+//                urlJavaTicks.getStandardPanel().setVisiblePanelAdd(true);
+               setVisibalButtons(panelAdd, true); 
+//                panelAdd.setVisible(true);
+//                panelOpen.setVisible(false);
+//            newNameZametka.selectAll();
+            
             }else{
-               setVisibalButtons(panelAdd, false);
+//                 panelAdd.setVisible(false);
+//                panelOpen.setVisible(true);
+             setVisibalButtons(panelAdd, false);
             }
         }else if(e.getSource().equals(b5)){// Открыть заметку
             if(!panelOpen.isVisible()){
@@ -340,7 +354,7 @@ public class PanelTopMenu extends JPanel implements MouseListener{
             }
         }else if(e.getSource().equals(openNameZametka) | e.getSource().equals(openZametka)){
                 openNameZametka.selectAll();
-            }
+            } 
     }
 
     @Override
@@ -386,6 +400,7 @@ public class PanelTopMenu extends JPanel implements MouseListener{
         panelOpen.setVisible(false);
         
         b.setVisible(f);
+        System.out.println(b.getToolTipText());
     }
     
     

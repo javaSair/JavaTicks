@@ -68,14 +68,14 @@ public class Dirs {
 //                    r.frameTicks.setVisibleList(false);
 //                } catch (InterruptedException ex) {   Logger.getLogger(Dirs.class.getName()).log(Level.SEVERE, null, ex);
 //                }
-                r.frameTicks.setNameZametki(fileDir.getName());
-                r.setContentPane(r.frameTicks);
+                r.getFrameTicks().setNameZametki(fileDir.getName());
+                r.setContentPane(r.getFrameTicks());
                 try {
-                    r.frameTicks.setVisibleFileList(false); // Очистить список
-                    r.frameTicks.clearListButtonAddFile(); // Очистить коллекчию
-                    r.frameTicks.repaintIco();
-                    r.frameTicks.setActivatedAdd(true);
-                    r.frameTicks.setTextBlock("");
+                    r.getFrameTicks().setVisibleFileList(false); // Очистить список
+                    r.getFrameTicks().clearListButtonAddFile(); // Очистить коллекчию
+                    r.getFrameTicks().repaintIco();
+                    r.getFrameTicks().setActivatedAdd(true);
+                    r.getFrameTicks().setTextBlock("");
                 } catch (InterruptedException ex) {   Logger.getLogger(Dirs.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } catch (IOException ex) {
@@ -83,7 +83,7 @@ public class Dirs {
             }
 
         } else { // Если директория существует уведомить об этом
-            if(r.getPanel().equals(r.frameTicks)){
+            if(r.getPanel().equals(r.getFrameTicks())){
                 
             }else{
                        s = r.getStandardPanel();
