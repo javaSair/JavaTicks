@@ -1,27 +1,22 @@
 package start;
-
-// В процессе     
-// Реализовать потиповое добавление иконок файлов
-import com.sun.java.swing.plaf.windows.WindowsScrollPaneUI;
+   
+// Реализованно - потиповое добавление иконок файлов 
+ // В процессе - Файл чтения в заметку (реализовать разные кодировки чтения)
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FileDialog;
-import java.awt.Font;
-import java.awt.Frame;
-import java.awt.Graphics;
-import java.awt.Point;
-import java.awt.event.ActionListener;
+import java.awt.Font; 
 import java.awt.event.MouseListener;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
+import java.io.FileInputStream; 
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -31,16 +26,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
+import javax.swing.JButton; 
 import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
+import javax.swing.JLayeredPane; 
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextArea;
-import javax.swing.JViewport;
+import javax.swing.JTextArea; 
+import javax.swing.JToggleButton;
 
 public class FrameTicks extends JLayeredPane implements MouseListener {
 
@@ -61,18 +52,36 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
     private JButton bSave;
     private JTextArea text;
     private JTextArea textNew;
-
+    private String textFile;  // Файл чтения в заметку (реализовать разные кодировки чтения)
     PanelTopMenu urlPanelTopMenu;
+    private JToggleButton tUTF,tWin1251;
+    private JPanel panelTextDecode;
 
     private final JLabel LABELFON;
 
     private static boolean flag = false; // Индикатор статуса свернуто\развернуто
 
+    
+     void setNullTextFile(){
+        textFile = "";
+    }
+    
+    
+    String getDecodeTXT(){
+        if(tUTF.isSelected()){
+            return tUTF.getActionCommand();
+        }else
+            return tWin1251.getActionCommand();
+    }
+    
+    
+    
     void clearListButtonAddFile() {
         listButtonAddFile = new ArrayList<>();
     }
 
-    void setVisibalButtonSave(boolean flag) {
+    void setVisibalPanelSave(boolean flag) {
+        panelTextDecode.setVisible(flag);
         bSave.setVisible(flag);
     }
 
@@ -117,7 +126,7 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
 
 //Динамическое добавление файлов в существующую заметку   
     void setNewImageAdFile(String path) {
-        bSave.setVisible(false);
+        setVisibalPanelSave(false);
         if (listButtonAddFile.size() > 6) {
             bAddFile.setVisible(false);
         } else {
@@ -128,7 +137,7 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
             } else {
 
                 urlNewAnimatedIconFile.copyFile(path);
-                b = new JButton(urlJavaTicks.GetFileTipICO(path.substring(path.length() - 3))); //Иконка  Расширение файла
+                b = new JButton(urlJavaTicks.GetFileTipICO(path.substring(path.lastIndexOf(".")+1))); //Иконка  Расширение файла
                 b.setToolTipText(path.substring(path.lastIndexOf("\\") + 1));  // подсказка
                 listButtonAddFile.add(b);
                 b.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -154,11 +163,11 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
 
     // Динамическое добавление существующих файлов в существующую заметку
     void setImageAdFile(String path) {
-        bSave.setVisible(false);
+        setVisibalPanelSave(false);
         if (listButtonAddFile.size() > 6) {
             bAddFile.setVisible(false);
         } else {
-            b = new JButton(urlJavaTicks.GetFileTipICO(path.substring(path.length() - 3))); //Иконка  Расширение файла
+            b = new JButton(urlJavaTicks.GetFileTipICO(path.substring(path.lastIndexOf(".") + 1))); //Иконка  Расширение файла
             b.setToolTipText(path.substring(path.lastIndexOf("\\") + 1));  // подсказка
             listButtonAddFile.add(b);
             b.setBorder(null);
@@ -229,20 +238,24 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
             public void run() {
 
                 try {
-                    System.out.println("Запись в файл");
-
-                    file = Files.newOutputStream(Paths.get(urlJavaTicks.getNameDefaultDir() + "\\" + getNameZametki() + "\\" + getNameZametki() + ".txt"), StandardOpenOption.CREATE, StandardOpenOption.WRITE);
+                    // Сохранение в UTF-8
+PrintWriter wr = new PrintWriter(Paths.get(urlJavaTicks.getNameDefaultDir() + "\\" + getNameZametki() + "\\" + getNameZametki() + ".txt").toFile());
+               
+//                    Files.delete(Paths.get(urlJavaTicks.getNameDefaultDir() + "\\" + getNameZametki() + "\\" + getNameZametki() + ".txt"));
+//                    file = Files.newOutputStream(Paths.get(urlJavaTicks.getNameDefaultDir() + "\\" + getNameZametki() + "\\" + getNameZametki() + ".txt"), StandardOpenOption.CREATE_NEW, StandardOpenOption.WRITE);
 //             FileWriter wr = new FileWriter("");
 
                     ByteArrayOutputStream outByte = new ByteArrayOutputStream();
 
-                    System.out.println(getNameZametki() + ".txt");
 //                       byte[] b = textNew.getText().getBytes();
-                    byte[] b = textNew.getText().getBytes();
-                    outByte.write(b);
+//                                 outByte.write(b);
+                    
+                    char[] b = textNew.getText().toCharArray();
+                    wr.println(b);
+                   
 
-                    outByte.writeTo(file);
-                    file.close();
+                     
+                    wr.close();
                     return;
 
                 } catch (IOException ex) {
@@ -258,7 +271,48 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
 
 // 
     public FrameTicks(JavaTicks r) {
+        
+        
+        
+        panelTextDecode = new JPanel();
+        panelTextDecode.setBounds(300, 76, 130, 64);
+        
+        panelTextDecode.setBorder(null);
+        panelTextDecode.setOpaque(false);
+        
+                // Реализация чтения текста в разных кодировках
+        tWin1251 = new JToggleButton(new ImageIcon(JavaTicks.class.getResource("/image/codirovka/win1251False.png")));
+        tWin1251.setSelectedIcon(new ImageIcon(JavaTicks.class.getResource("/image/codirovka/win1251True.png")));
+        tWin1251.setBounds(300, 80, 64, 32);
+        tWin1251.setActionCommand("Windows-1251");
+        tWin1251.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
+        tWin1251.addActionListener((e)->{
+            tUTF.setSelected(false);
+            newTextBlock(textFile);
+        
+        });
+        panelTextDecode.add(tWin1251);
+//        tUTF.addActionListener(nul);
+        
+        
+        tUTF = new JToggleButton(new ImageIcon(JavaTicks.class.getResource("/image/codirovka/utfFalse.png")));
+        tUTF.setSelectedIcon(new ImageIcon(JavaTicks.class.getResource("/image/codirovka/utfTrue.png")));
+        tUTF.setBounds(300, 115, 64, 21);
+        tUTF.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
+        tUTF.setActionCommand("UTF-8");
+        tUTF.setSelected(true);
+        tUTF.addActionListener((e)->{
+            tWin1251.setSelected(false);
+            newTextBlock(textFile);
+        });
+        panelTextDecode.add(tUTF);
+        
+      
 
+        
+        
+        
+        
         // Кнопка сохранения 
         bSave = new JButton(new ImageIcon(JavaTicks.class.getResource("/image/seve.png")));
         bSave.setBounds(400, 76, 64, 64);
@@ -273,9 +327,14 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
                 Logger.getLogger(FrameTicks.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-        bSave.setVisible(true);
-        add(bSave, Integer.valueOf(6));
+//        bSave.setVisible(true);
+     add(bSave, Integer.valueOf(6));
 
+       add(panelTextDecode,Integer.valueOf(6));   
+        
+        
+        
+        
         urlNewAnimatedIconFile = new NewAnimatedIconFile(this);
         urlJavaTicks = r;
         setSize(495, 495);
@@ -315,7 +374,6 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
         bAddFile.setContentAreaFilled(false);
         bAddFile.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         bAddFile.addActionListener((e) -> {
-//        System.out.println("q");
 
             fileDialog = new FileDialog(urlJavaTicks);
             fileDialog.setPreferredSize(new Dimension(400, 400));
@@ -328,7 +386,6 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
                 }
                 setNewImageAdFile(s);
             }
-//            System.out.println(s);
 
         });
         add(bAddFile, Integer.valueOf(8));
@@ -345,8 +402,9 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
             fileDialog = new FileDialog(urlJavaTicks);
             fileDialog.setPreferredSize(new Dimension(400, 400));
             fileDialog.setVisible(true);
-         String s = fileDialog.getDirectory()+"\\"+fileDialog.getFile();
-            newTextBlock(s);
+         textFile = fileDialog.getDirectory()+"\\"+fileDialog.getFile();
+         
+            newTextBlock(textFile);
             
         });
         
@@ -379,6 +437,7 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
         textNew.setCaretColor(Color.green);
         textNew.setBorder(BorderFactory.createEtchedBorder());
         textNew.addMouseListener(this);
+        textNew.setLineWrap(true);
         textNew.setOpaque(false);
 
         add(textNew, Integer.valueOf(2));
@@ -409,20 +468,21 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
     void getbAddFile2() {
         bAddFile.setBounds(getWidthAddFile() + 40, 70, 38, 23);
     }
+    
 
     // Анимация списка файлов (Свернуть/Развернуть)
+   private Thread tAnimationScrolFile = null;
     void animationScrolFile() {
         Runnable r = new Runnable() {
-
             @Override
             public void run() {
+                
                 if (bAddFile.isEnabled()) {//если  не свернут свернуть
                     int i = listButtonAddFile.size();
 
                     metka:
                     while (true) {
                         try {
-//                            System.out.println("q");
                             for (int x = 0; x < listButtonAddFile.size(); x++) {
                                 i--;
                                 for (int y = 0; y < x * 50 + (50); y += 10) {
@@ -434,19 +494,18 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
                                     }
                                     listButtonAddFile.get(x).setBounds(x * 55 + 55 - y, 75, 55, 66);
                                     listButtonAddFile.get(x).repaint();
-//                                        System.out.println(x);
                                 }
                             }
 
                         } catch (InterruptedException ex) {
                             System.err.println("Exception sleep animation");
                         }
-                        bSave.setVisible(true);
+                        setVisibalPanelSave(true);
                     }
                     bAddFile.setEnabled(false);
                     bAddFile.setVisible(false);
                 } else { // В противном случае развернуть
-                    bSave.setVisible(false);
+                    setVisibalPanelSave(false);
                     int i = listButtonAddFile.size();
                     if (i < 7) {
                         bAddFile.setVisible(true);
@@ -465,7 +524,6 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
                                     }
                                     listButtonAddFile.get((listButtonAddFile.size() - 1) - x).setBounds(y, 75, 55, 66);
                                     listButtonAddFile.get((listButtonAddFile.size() - 1) - x).repaint();
-//                                    System.out.println(listButtonAddFile.size() - 1 - x);
                                 }
                             }
 
@@ -476,18 +534,27 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
                     bAddFile.setEnabled(true);
 
                 }
+           tAnimationScrolFile.interrupt(); // Прервать поток анимации
+            tAnimationScrolFile = null; // обнулить его значение
             }
         };
-        new Thread(r).start();
+      
+        if(tAnimationScrolFile == null){
+          tAnimationScrolFile = new Thread(r, "AnimatedSlider"); // Создать поток реализующий анимацию
+          tAnimationScrolFile.start();  // Запустить анимацию
+      }else{
+           // Если поток еще выполняется нечего не делать
+      }
     }
 
     @Override
     public void mouseClicked(java.awt.event.MouseEvent e) {
         if (e.getSource().equals(labelJavaICO)) {
+           
             animationScrolFile();
         } else if (e.getSource().equals(textNew)) {
             if (listButtonAddFile.size() > 0) {
-                if (bAddFile.isEnabled()) {
+                if (bAddFile.isEnabled()) { // Проверить что шторка раздвинута
                     animationScrolFile();
                 }
             }
@@ -514,7 +581,6 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
                     while ((i += 10) != 90) {
                         try {
                             Thread.sleep(10);
-//                            System.out.println("q");
                             bAddFileText.setBounds((-80) + i, 305, 100, 25);
                             bAddFileText.revalidate();
 
@@ -538,7 +604,6 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
                     while ((i += 3) < 80) {
                         try {
                             Thread.sleep(10);
-//                            System.out.println("q");
                             bAddFileText.setBounds((0) - i, 305, 100, 25);
                             bAddFileText.revalidate();
 
@@ -552,13 +617,24 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
         }
     }
     
+    
+    
+    
+    
     private void newTextBlock(String ticks){
-           try (FileInputStream fileRead = new FileInputStream(Paths.get(ticks).toAbsolutePath().toString())) {
+//        textNew
+     
+        if(String.valueOf(ticks).equals("null")) // Проверить что файл был выбран в противном случае передать ссылку на заметку
+            ticks = urlJavaTicks.getNameDefaultDir()+"\\"+getNameZametki()+"\\"+getNameZametki()+".txt";
+        if(Files.exists(Paths.get(ticks).toAbsolutePath())){
+          String s = Paths.get(ticks).toAbsolutePath().toString();
+            if(s.substring(s.length()-3).equals("txt") | s.substring(s.length()-3).equals("rtf") | s.substring(s.length()-3).equals("doc")){
+               try (FileInputStream fileRead = new FileInputStream(Paths.get(ticks).toAbsolutePath().toString())) {
 
                         String codingRead = "Windows-1251";
 //                        String codingRead = "UTF-8";
 
-                        Reader r = new BufferedReader(new InputStreamReader(fileRead, codingRead));
+                        Reader r = new BufferedReader(new InputStreamReader(fileRead, getDecodeTXT()));
 
                         String contentTextBlock = "";
                         int i = 0;
@@ -567,11 +643,36 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
                             contentTextBlock += (char) i;
                         }
 
-//                        System.out.println(contentTextBlock);
                         urlJavaTicks.getFrameTicks().setTextBlock(contentTextBlock);
+                        urlJavaTicks.setContentPane(urlJavaTicks.getFrameTicks());
                     } catch (IOException ex) {
                         Logger.getLogger(LoadingZametki.class.getName()).log(Level.SEVERE, null, ex);
                     }
+            }else{ // В противном случае прочитать заметку
+ 
+                if(textNew.getText() != null){
+                                   try (FileInputStream fileRead2 = new FileInputStream(Paths.get(urlJavaTicks.getNameDefaultDir()+"\\"+getNameZametki()+"\\"+getNameZametki()+".txt").toAbsolutePath().toString())) {
+
+                        Reader r1 = new BufferedReader(new InputStreamReader(fileRead2, getDecodeTXT()));
+
+                        String contentTextBlock = "";
+                        int i = 0;
+
+                        while ((i = r1.read()) != -1) {
+                            contentTextBlock += (char) i;
+                        }
+
+                        urlJavaTicks.getFrameTicks().setTextBlock(contentTextBlock);
+                        urlJavaTicks.setContentPane(urlJavaTicks.getFrameTicks());
+                    } catch (IOException ex) {
+                        Logger.getLogger(LoadingZametki.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                
+                
+                
+            }
+         }
     }
     
     

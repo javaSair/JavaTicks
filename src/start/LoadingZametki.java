@@ -27,7 +27,7 @@ public class LoadingZametki {
     private FileReader fileTicks;
     private FrameTicks urlFrameTicks;
     StandardPanel urlurlStandardPanel;
-
+    private String kodirovka;
     public LoadingZametki(StandardPanel urlStandardPanel, JavaTicks urlJavaTicks) {
         this.urlJavaTicks = urlJavaTicks;
         this.urlurlStandardPanel = urlStandardPanel;
@@ -78,11 +78,11 @@ public class LoadingZametki {
                     }
                 } else { // в противном случае прочитать его содержимое
                     try (FileInputStream fileRead = new FileInputStream(Paths.get(ticks + "\\" + ticks.substring(ticks.lastIndexOf("\\") + 1) + ".txt").toAbsolutePath().toString())) {
-
+ 
 //                        String codingRead = "Windows-1251";
-                        String codingRead = "UTF-8";
+//                        String codingRead = "UTF-8";
 
-                        Reader r = new BufferedReader(new InputStreamReader(fileRead, codingRead));
+                        Reader r = new BufferedReader(new InputStreamReader(fileRead,  urlJavaTicks.getFrameTicks().getDecodeTXT()));
 
                         String contentTextBlock = "";
                         int i = 0;

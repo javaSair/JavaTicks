@@ -6,11 +6,13 @@ import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Dirs {
-
+ 
     private JavaTicks r;
     private StandardPanel s;
 
@@ -20,6 +22,25 @@ public class Dirs {
     }
 
     private Path path;
+    
+       public void createDir(Boolean f,String s){
+    
+           
+//            r.setDirZametki(Paths.get(s));
+           
+//           HashSet<Path> hesh = new HashSet<>();
+//           hesh.add(Paths.get(s));
+
+  
+//                hesh.forEach((a)-> r.setDirZametki(a));
+//             r.setDirZametki(Paths.get(s));
+//                System.out.println(r.getListSize());
+                
+             r.geturlPanelBlockZametok().repaintSpisok();
+             PanelBlockZametok  p = new PanelBlockZametok(r);
+             p.repaintSpisok();
+    
+       }
 
     // Получить количество существующих заметок
     public void createDir() {

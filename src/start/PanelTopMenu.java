@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JToggleButton;
 
  
 public class PanelTopMenu extends JPanel implements MouseListener{
@@ -58,8 +59,15 @@ public class PanelTopMenu extends JPanel implements MouseListener{
     private JButton newAddZametka; // Создание новой заметки
     private JTextField newNameZametka; // поле для новой заметки
     private JTextField openNameZametka; // поле для существующей заметки
+   
+     
     
     public PanelTopMenu(JavaTicks urlJavaTicks1) {
+        
+
+        
+        
+        
         this.urlJavaTicks = urlJavaTicks1;
         this.urlFrameTicks = urlJavaTicks.getFrameTicks();
         setLayout(null);
@@ -116,7 +124,7 @@ public class PanelTopMenu extends JPanel implements MouseListener{
 //            urlJavaTicks.frameTicks.setNameZametki(newNameZametka.getText());
             Dirs d = urlJavaTicks.getDirs();
             d.createDir(newNameZametka.getText());
-             urlJavaTicks.getFrameTicks().setVisibalButtonSave(true);
+             urlJavaTicks.getFrameTicks().setVisibalPanelSave(true);
         });     
         newAddZametka.setBorder(null);
         newAddZametka.setContentAreaFilled(false);
@@ -208,7 +216,7 @@ public class PanelTopMenu extends JPanel implements MouseListener{
         repaint();
 
         
-        b2 = new JButton("История", new ImageIcon(JavaTicks.class.getResource(urlJavaTicks1.getS()+"/image/Navigation/b1.png")));
+        b2 = new JButton("Контакт", new ImageIcon(JavaTicks.class.getResource(urlJavaTicks1.getS()+"/image/Navigation/b1.png")));
         b2.setVerticalTextPosition(JButton.CENTER);
         b2.setHorizontalTextPosition(JButton.CENTER);
         b2.setBounds(340, 15, 65, 20);

@@ -11,10 +11,22 @@ import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 import java.util.TreeMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -25,12 +37,12 @@ import javax.swing.SwingUtilities;
 public class JavaTicks extends JFrame {
 
 //   private final String S = "../";  // для jar
-   private  String S = "";             // для IDE
-   String getS(){
-       return S;
-   }
-   
-   
+    private String S = "";             // для IDE
+
+    String getS() {
+        return S;
+    }
+
     private static Path path;
     private FrameTicks frameTicks;
     StandardPanel urlStandardPanel;
@@ -40,6 +52,110 @@ public class JavaTicks extends JFrame {
     private static Path nameDir = Paths.get("C:\\DirZametki");
     private Dirs urlDirs;
     private PanelBlockZametok urlPanelBlockZametok;
+    private int reiting = 0;
+    private String metka = "без_метки";
+
+    // Конфиг файл
+    private FileReader fileConf;
+
+    // Получение уровня важности заметки
+    int getReitingZametki() {
+        return reiting;
+    }
+
+    // Установка уровня важности заметки
+    void setReitingZametki(int i) {
+        if (i <= 5) {
+            reiting = i;
+        } else {
+            reiting = 0;
+        }
+    }
+    
+    String getMetki(){
+        return metka;
+    }
+    
+    
+    String getConfZametki(String nameZametki){
+        
+           String path = getNameDefaultDir()+"\\"+nameZametki+"\\conf.txt";
+        if(Files.isRegularFile(Paths.get(path).toAbsolutePath())){ // Проверка - доступности конфиг-файла
+            String s ="";
+//           System.out.println(path);
+            try {
+                FileReader readZ = new FileReader(path);
+                try {
+                    while(readZ.ready()){
+                        s+=(char)readZ.read();
+                    }
+                   
+                readZ.close();
+                
+                } catch (IOException ex) {
+                    Logger.getLogger(JavaTicks.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(JavaTicks.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+        return s;
+        
+    }else{
+             return "METKA=без_метки"+";\n"+"REITING=0;";
+        }
+       
+    }
+    
+    
+    
+    // Обновление конфиг-файла заметки
+    void UpdateConfigZametki(String nameZametki,String nameMetki,int xxx){
+        String path = getNameDefaultDir()+"\\"+nameZametki;
+        if(Files.isDirectory(Paths.get(path).toAbsolutePath())){
+//            System.out.println("Найден "+path);
+            path+="\\conf.txt";
+            try {
+                PrintWriter wr = new PrintWriter(path, "UTF-8");
+                wr.write("METKA="+metka+";"
+                        + ""+"REITING="+xxx+";"); // Обновить конфиг-файл заметки
+                wr.flush();
+                wr.close();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(JavaTicks.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (UnsupportedEncodingException ex) {
+                Logger.getLogger(JavaTicks.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    // Обновление конфиг-файла программы
+    void setSystemConf(){
+        
+    }
+    
+
+    // Чтение конфиг-файла и инициализация переменных
+    void readConf() {
+        Runnable r = new Runnable() {
+
+            @Override
+            public void run() {
+                String name = "";
+                try {
+                    while (fileConf.ready()) { // Реализовать подгрузку начальных значений
+                        name += (char) fileConf.read();
+                    }
+                    StringTokenizer s = new StringTokenizer(name, ";");
+                    while (s.hasMoreElements()) {
+                        System.out.println(s.nextElement());
+                    }
+                } catch (IOException ex) {
+                    Logger.getLogger(JavaTicks.class.getName()).log(Level.SEVERE, null, ex); // Создать всплывающее окно с выбором решения
+                }
+            }
+        };
+        new Thread(r).start();
+    }
 
     // Реализовать пакет иконок для разных форматов добавляемых к заметки файлов 
     private final TreeMap<String, ImageIcon> IcoMap = new TreeMap<>();
@@ -51,13 +167,11 @@ public class JavaTicks extends JFrame {
         }
         return IcoMap.get("none");
     }
-    
-    
-    
-    FrameTicks getFrameTicks(){
+
+    FrameTicks getFrameTicks() {
         return frameTicks;
     }
-    
+
 
     /*
      Получить ссылку на экземпляр класса Dirs
@@ -70,14 +184,11 @@ public class JavaTicks extends JFrame {
         return this;
     }
 
-    
-    
-    
     StandardPanel getStandardPanel() {
         return urlStandardPanel;
     }
-    
-     PanelBlockZametok geturlPanelBlockZametok() {
+
+    PanelBlockZametok geturlPanelBlockZametok() {
         return urlPanelBlockZametok;
     }
 
@@ -85,7 +196,7 @@ public class JavaTicks extends JFrame {
         return nameDir.toAbsolutePath().toString();
     }
 
-    static ArrayList<Path> DirZametks = new ArrayList<>();
+     ArrayList<Path> DirZametks = new ArrayList<>();
 
     ArrayList<Path> getListZametki() {
         return DirZametks;
@@ -109,25 +220,43 @@ public class JavaTicks extends JFrame {
     void clearListLabel() {
         DirZametks.clear();
     }
+    
+ void printList(){
+     for(int i=0;i<DirZametks.size();i++)
+         System.out.println(DirZametks.get(i));
+ }
+    
+    
 
     public JavaTicks() {
 
+        try {
+            fileConf = new FileReader("conf.txt");
+        } catch (FileNotFoundException ex) {
+            try {
+                PrintWriter writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream("conf.txt"), "utf-8"));
+                fileConf = new FileReader("conf.txt");
+            } catch (IOException ex1) {
+                Logger.getLogger(JavaTicks.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        }
+        readConf();
         IcoMap.put("txt", new ImageIcon(JavaTicks.class.getResource(S + "/image/tipFile/txtTip.png")));
         IcoMap.put("ai", new ImageIcon(JavaTicks.class.getResource(S + "/image/tipFile/aiTip.png")));
-        IcoMap.put("class", new ImageIcon());
-        IcoMap.put("doc", new ImageIcon(JavaTicks.class.getResource(S+"/image/tipFile/docTip.png")));
-        IcoMap.put("eps", new ImageIcon(JavaTicks.class.getResource(S+"/image/tipFile/epsTip.png")));
-        IcoMap.put("gif", new ImageIcon(JavaTicks.class.getResource(S+"/image/tipFile/gifTip.png")));
-        IcoMap.put("java", new ImageIcon(JavaTicks.class.getResource(S+"/image/tipFile/javaTip.png")));
-        IcoMap.put("jpeg", new ImageIcon(JavaTicks.class.getResource(S+"/image/tipFile/jpegTip.png")));
-        IcoMap.put("none", new ImageIcon(JavaTicks.class.getResource(S+"/image/tipFile/noneTip.png")));
-        IcoMap.put("pdf", new ImageIcon(JavaTicks.class.getResource(S+"/image/tipFile/pdfTip.png")));
-        IcoMap.put("png", new ImageIcon(JavaTicks.class.getResource(S+"/image/tipFile/pngTip.png")));
-        IcoMap.put("ppt", new ImageIcon(JavaTicks.class.getResource(S+"/image/tipFile/pptTip.png")));
-        IcoMap.put("psd", new ImageIcon(JavaTicks.class.getResource(S+"/image/tipFile/psdTip.png")));
-        IcoMap.put("rar", new ImageIcon(JavaTicks.class.getResource(S+"/image/tipFile/rarTip.png")));
-        IcoMap.put("xml", new ImageIcon(JavaTicks.class.getResource(S+"/image/tipFile/xmlTip.png")));
-        IcoMap.put("zip", new ImageIcon(JavaTicks.class.getResource(S+"/image/tipFile/zipTip.png")));
+        IcoMap.put("class", new ImageIcon(JavaTicks.class.getResource(S + "/image/tipFile/classTip.png")));
+        IcoMap.put("doc", new ImageIcon(JavaTicks.class.getResource(S + "/image/tipFile/docTip.png")));
+        IcoMap.put("eps", new ImageIcon(JavaTicks.class.getResource(S + "/image/tipFile/epsTip.png")));
+        IcoMap.put("gif", new ImageIcon(JavaTicks.class.getResource(S + "/image/tipFile/gifTip.png")));
+        IcoMap.put("java", new ImageIcon(JavaTicks.class.getResource(S + "/image/tipFile/javaTip.png")));
+        IcoMap.put("jpg", new ImageIcon(JavaTicks.class.getResource(S + "/image/tipFile/jpgTip.png")));
+        IcoMap.put("none", new ImageIcon(JavaTicks.class.getResource(S + "/image/tipFile/noneTip.png")));
+        IcoMap.put("pdf", new ImageIcon(JavaTicks.class.getResource(S + "/image/tipFile/pdfTip.png")));
+        IcoMap.put("png", new ImageIcon(JavaTicks.class.getResource(S + "/image/tipFile/pngTip.png")));
+        IcoMap.put("ppt", new ImageIcon(JavaTicks.class.getResource(S + "/image/tipFile/pptTip.png")));
+        IcoMap.put("psd", new ImageIcon(JavaTicks.class.getResource(S + "/image/tipFile/psdTip.png")));
+        IcoMap.put("rar", new ImageIcon(JavaTicks.class.getResource(S + "/image/tipFile/rarTip.png")));
+        IcoMap.put("xml", new ImageIcon(JavaTicks.class.getResource(S + "/image/tipFile/xmlTip.png")));
+        IcoMap.put("zip", new ImageIcon(JavaTicks.class.getResource(S + "/image/tipFile/zipTip.png")));
 
         // Получить количество существующих заметок
         urlDirs = new Dirs(this);
@@ -137,8 +266,8 @@ public class JavaTicks extends JFrame {
         setLayout(new FlowLayout());
         setSize(495, 495);
         setLocationRelativeTo(null); // появление по середине окна
-        setIconImage(new ImageIcon(JavaTicks.class.getResource(S+"/image/ICO3.png")).getImage());
-       
+        setIconImage(new ImageIcon(JavaTicks.class.getResource(S + "/image/ICO3.png")).getImage());
+
 //Реалзовать перемещение окна         
         addMouseListener(new MouseAdapter() {
 
@@ -160,7 +289,7 @@ public class JavaTicks extends JFrame {
         frameTicks = new FrameTicks(this);
         setContentPane(urlStandardPanel = new StandardPanel(this));
         urlPanelBlockZametok = new PanelBlockZametok(this);
- 
+
         setVisible(true);
         repaint();
     }

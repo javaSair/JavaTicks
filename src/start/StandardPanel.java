@@ -1,5 +1,5 @@
 package start;
-
+ 
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
@@ -239,7 +239,7 @@ public class StandardPanel extends JPanel implements MouseListener {
         add(b1, Integer.valueOf(3));
         repaint();
 
-        b2 = new JButton("История", new ImageIcon(JavaTicks.class.getResource(urlJavaTicks.getS()+"/image/Navigation/b1.png")));
+        b2 = new JButton("Контакт", new ImageIcon(JavaTicks.class.getResource(urlJavaTicks.getS()+"/image/Navigation/b1.png")));
         b2.setVerticalTextPosition(JButton.CENTER);
         b2.setHorizontalTextPosition(JButton.CENTER);
         b2.setBounds(340, 15, 65, 20);
@@ -308,7 +308,7 @@ public class StandardPanel extends JPanel implements MouseListener {
         b6.setContentAreaFilled(false);
         b6.addMouseListener(this);
         b6.setActionCommand("b6");
-         b6.addActionListener((e)->{urlFrameTicks.setVisibalButtonSave(true);});
+         b6.addActionListener((e)->{urlFrameTicks.setVisibalPanelSave(true);});
         b6.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         add(b6, Integer.valueOf(3));
         repaint();
