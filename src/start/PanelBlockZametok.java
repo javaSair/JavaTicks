@@ -261,7 +261,7 @@ public class PanelBlockZametok extends JPanel implements ActionListener,MouseLis
        scrolPanemetki.setVerticalScrollBarPolicy(scrolPanemetki.VERTICAL_SCROLLBAR_NEVER);
        scrolPanemetki.setBorder(null);
        scrolPanemetki.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        add(scrolPanemetki,Integer.valueOf(8));
+//        add(scrolPanemetki,Integer.valueOf(8));
       
 // Поле для ввода и последующей фильтрации вывода заметок по заданной метке   
         textFilterMetki = new JTextField(100);
@@ -301,7 +301,7 @@ public class PanelBlockZametok extends JPanel implements ActionListener,MouseLis
         add(urlPanelTopMenu, Integer.valueOf(7));
 
         panelVidReiting = new JPanel();
-        panelVidReiting.setBounds(130, 120, 140, 30); //370, 130, 100, 20
+        panelVidReiting.setBounds(140, 120, 140, 30); //370, 130, 100, 20
         initbReiting();
         panelVidReiting.add(bReiting[0]);
         panelVidReiting.add(bReiting[1]);
