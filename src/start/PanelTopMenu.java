@@ -61,6 +61,10 @@ public class PanelTopMenu extends JPanel implements MouseListener{
     private JTextField openNameZametka; // поле для существующей заметки
    
      
+    void setVidAll(){
+        b4.doClick();
+    }
+    
     
     public PanelTopMenu(JavaTicks urlJavaTicks1) {
         
@@ -237,12 +241,16 @@ public class PanelTopMenu extends JPanel implements MouseListener{
         b3.setForeground(Color.LIGHT_GRAY);
         b3.setContentAreaFilled(false);
         b3.addMouseListener(this);
+        b3.addActionListener((e)->{
+            urlJavaTicks.setContentPane(urlJavaTicks.getPanelOption());
+            urlJavaTicks.revalidate();
+        });
         b3.setActionCommand("b3");
         b3.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         add(b3, Integer.valueOf(6));
         repaint();
 
-        b4 = new JButton("редактор", new ImageIcon(JavaTicks.class.getResource(urlJavaTicks1.getS()+"/image/Navigation/b1.png")));
+        b4 = new JButton("обзор", new ImageIcon(JavaTicks.class.getResource(urlJavaTicks1.getS()+"/image/Navigation/b1.png")));
         b4.setVerticalTextPosition(JButton.CENTER);
         b4.setHorizontalTextPosition(JButton.CENTER);
         b4.setBounds(220, 15, 65, 20);

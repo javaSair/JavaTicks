@@ -36,13 +36,14 @@ public class Dirs {
 //             r.setDirZametki(Paths.get(s));
 //                System.out.println(r.getListSize());
                 
-             r.geturlPanelBlockZametok().repaintSpisok();
+            r.geturlPanelBlockZametok().repaintSpisok();
              PanelBlockZametok  p = new PanelBlockZametok(r);
              p.repaintSpisok();
     
        }
-
-    // Получить количество существующих заметок
+/**
+ * Получить количество существующих заметок
+ */
     public void createDir() {
 
         // Проверка доступности директориии для заметок установленной по умолчанию методом  getNameDefaultDir();
@@ -68,8 +69,10 @@ public class Dirs {
         }
 
     }
-
-    // Создание директории и файла заметки для новой заметки
+/**
+ * @param dirName 
+ * Создание директории и файла заметки для новой заметки
+ */
     public void createDir(String dirName) {
 
         // Проверка доступности директориии создаваемой заметоки

@@ -11,11 +11,14 @@ import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
@@ -54,7 +57,7 @@ public class JavaTicks extends JFrame {
     private PanelBlockZametok urlPanelBlockZametok;
     private int reiting = 0;
     private String metka = "без_метки";
-
+    private PanelOption urlPanelOption;
     // Конфиг файл
     private FileReader fileConf;
 
@@ -84,24 +87,24 @@ public class JavaTicks extends JFrame {
             String s ="";
 //           System.out.println(path);
             try {
-                FileReader readZ = new FileReader(path);
-                try {
-                    while(readZ.ready()){
-                        s+=(char)readZ.read();
-                    }
-                   
-                readZ.close();
+               
                 
-                } catch (IOException ex) {
+                FileInputStream readZ = new FileInputStream(path);
+                 BufferedReader buf = new BufferedReader(new InputStreamReader(readZ,"UTF-8"));
+                 
+                 int i=1;
+           
+                    while((i=buf.read())!=-1){
+                        s+=(char)i;
+                    }
+                   buf.close();
+            }    catch (IOException ex) {
                     Logger.getLogger(JavaTicks.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(JavaTicks.class.getName()).log(Level.SEVERE, null, ex);
-            } 
+                } 
         return s;
         
     }else{
-             return "METKA=без_метки"+";\n"+"REITING=0;";
+             return "METKA= "+";"+"REITING=1;";
         }
        
     }
@@ -116,7 +119,7 @@ public class JavaTicks extends JFrame {
             path+="\\conf.txt";
             try {
                 PrintWriter wr = new PrintWriter(path, "UTF-8");
-                wr.write("METKA="+metka+";"
+                wr.write("METKA="+nameMetki+";"
                         + ""+"REITING="+xxx+";"); // Обновить конфиг-файл заметки
                 wr.flush();
                 wr.close();
@@ -133,7 +136,27 @@ public class JavaTicks extends JFrame {
         
     }
     
+    void setDirDefault(Path defaultDir){
+        nameDir = defaultDir;
+    }
 
+    void updateReadConf(){
+                
+         PrintWriter wr2;
+        try {
+            wr2 = new PrintWriter("conf.txt", "UTF-8");
+               wr2.write("Dir="+getNameDefaultDir()+";");// Обновить конфиг-файл программы
+                wr2.flush();
+                wr2.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(JavaTicks.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(JavaTicks.class.getName()).log(Level.SEVERE, null, ex);
+        }
+             
+        
+    }
+    
     // Чтение конфиг-файла и инициализация переменных
     void readConf() {
         Runnable r = new Runnable() {
@@ -147,7 +170,12 @@ public class JavaTicks extends JFrame {
                     }
                     StringTokenizer s = new StringTokenizer(name, ";");
                     while (s.hasMoreElements()) {
-                        System.out.println(s.nextElement());
+                        String str = s.nextToken();
+                        if(str.substring(0,str.lastIndexOf("=")).equals("Dir")){
+                            String strong = str.substring(str.lastIndexOf("=")+1);
+                            Path p = Paths.get(strong).toAbsolutePath();
+                            setDirDefault(p);
+                        }
                     }
                 } catch (IOException ex) {
                     Logger.getLogger(JavaTicks.class.getName()).log(Level.SEVERE, null, ex); // Создать всплывающее окно с выбором решения
@@ -172,6 +200,11 @@ public class JavaTicks extends JFrame {
         return frameTicks;
     }
 
+    
+     PanelOption getPanelOption(){
+         return urlPanelOption;
+     }
+    
 
     /*
      Получить ссылку на экземпляр класса Dirs
@@ -289,7 +322,8 @@ public class JavaTicks extends JFrame {
         frameTicks = new FrameTicks(this);
         setContentPane(urlStandardPanel = new StandardPanel(this));
         urlPanelBlockZametok = new PanelBlockZametok(this);
-
+        urlPanelOption = new PanelOption(this);
+        
         setVisible(true);
         repaint();
     }

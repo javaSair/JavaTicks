@@ -77,7 +77,8 @@ public class LoadingZametki {
                         Logger.getLogger(LoadingZametki.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } else { // в противном случае прочитать его содержимое
-                    try (FileInputStream fileRead = new FileInputStream(Paths.get(ticks + "\\" + ticks.substring(ticks.lastIndexOf("\\") + 1) + ".txt").toAbsolutePath().toString())) {
+                    try (FileInputStream fileRead = new FileInputStream(Paths.get(ticks + "\\" + ticks.substring(ticks.lastIndexOf("\\") + 1) + ".txt").toAbsolutePath().toString())) 
+                    {
  
 //                        String codingRead = "Windows-1251";
 //                        String codingRead = "UTF-8";

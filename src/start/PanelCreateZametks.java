@@ -9,12 +9,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FilterInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -76,8 +80,16 @@ public class PanelCreateZametks extends JPanel implements MouseListener, ActionL
     public String getZaMetka(){
         return name.getText();
     }
+    public String getMetka(){
+        return metka.getText();
+    }
     
-    void setMetki(){
+    public void setMetka(String newMetka){
+         metka.setText(newMetka);
+    }
+    
+    
+    void updateZametkietki(){
         urlJavaTicks.UpdateConfigZametki(name.getText(),metka.getText(),znachimost);
     }
     
@@ -104,6 +116,30 @@ public class PanelCreateZametks extends JPanel implements MouseListener, ActionL
             znachimost = x;
             urlJavaTicks.setReitingZametki(x);
             urlJavaTicks.UpdateConfigZametki(name.getText(),metka.getText(),xxx);
+        }
+//            System.out.println("Вызов обновления конфиг файла заметки");
+//            System.out.println("Передача аргумента "+name.getText());
+            
+    }
+    /**
+     *
+     * @param x Инициализация приоретера заметки
+     */
+    void setVisibalMetkaZnacheniya() {
+           
+        if (znachimost <= 5) {
+            for (int i = 0; i < metkaZnachimosti.length; i++) {
+                if (i < znachimost) {
+                    metkaZnachimosti[i].setIcon(icoVidTrue);
+                     metkaZnachimosti[i].setBorder(null);
+                     metkaZnachimosti[i].setContentAreaFilled(false);
+                }else{
+                    metkaZnachimosti[i].setIcon(icoVidFalse);
+                     metkaZnachimosti[i].setBorder(null);
+                     metkaZnachimosti[i].setContentAreaFilled(false);
+                }
+            }
+ 
         }
 //            System.out.println("Вызов обновления конфиг файла заметки");
 //            System.out.println("Передача аргумента "+name.getText());
@@ -141,12 +177,17 @@ void setInitZnacheniya(){
          if(x.equals("REITING")){
            // Нахождение значения
       String  j = g.substring(g.lastIndexOf("=")+1);
-//            System.out.println("Значение "+j);
-            setVisibalMetkaZnacheniya(Integer.valueOf(j));
+//          System.out.println("Значение "+j);
+      znachimost = Integer.valueOf(j);
+            setVisibalMetkaZnacheniya();// Обработать исключение
          }else{
-             if(x.equals("METKA")){
-                  String  j = g.substring(g.lastIndexOf("=")+1);
-                  metka.setText("без_метки");
+             if(x.equals("METKA")){ 
+                  String  j =g.substring(g.lastIndexOf("=")+1);
+                  
+                     metka.setText(j);
+//                     metka.setText(j);
+//          System.out.println("Значение "+j);
+               
              }
          }
         }
@@ -250,7 +291,7 @@ void setInitZnacheniya(){
         metka = new JLabel(urlJavaTicks.getMetki());
 //        metka.addMouseListener(this);
         metka.setBorder(null);
-        metka.setBounds(265, 0, 150, 20);
+        metka.setBounds(265, 0, 100, 20);
 //        metka.setVisible(false);
     add(metka);
         

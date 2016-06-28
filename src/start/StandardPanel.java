@@ -260,12 +260,16 @@ public class StandardPanel extends JPanel implements MouseListener {
         b3.setForeground(Color.LIGHT_GRAY);
         b3.setContentAreaFilled(false);
         b3.addMouseListener(this);
+             b3.addActionListener((e)->{
+            urlJavaTicks.setContentPane(urlJavaTicks.getPanelOption());
+            urlJavaTicks.revalidate();
+        });
         b3.setActionCommand("b3");
         b3.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         add(b3, Integer.valueOf(3));
         repaint();
 
-        b4 = new JButton("редактор", new ImageIcon(JavaTicks.class.getResource(urlJavaTicks.getS()+"/image/Navigation/b1.png")));
+        b4 = new JButton("обзор", new ImageIcon(JavaTicks.class.getResource(urlJavaTicks.getS()+"/image/Navigation/b1.png")));
         b4.setVerticalTextPosition(JButton.CENTER);
         b4.setHorizontalTextPosition(JButton.CENTER);
         b4.setBounds(220, 15, 65, 20);
@@ -354,6 +358,9 @@ public class StandardPanel extends JPanel implements MouseListener {
         NumbetNameZametks.setVerticalTextPosition(JLabel.CENTER);
         NumbetNameZametks.setHorizontalTextPosition(JLabel.CENTER);
         NumbetNameZametks.setForeground(Color.LIGHT_GRAY);
+        NumbetNameZametks.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        NumbetNameZametks.addMouseListener(this);
+         
         NumbetNameZametks.setFont(new Font("Arial", Font.BOLD, 40));
         NumbetNameZametks.setBounds(250, 25, 155, 141);
 //        NumbetNameZametks.setBorder(BorderFactory.createEtchedBorder());
@@ -367,6 +374,11 @@ public class StandardPanel extends JPanel implements MouseListener {
 
        @Override
     public void mouseClicked(MouseEvent e) {
+        if(e.getSource().equals(NumbetNameZametks)){
+              urlJavaTicks.geturlPanelBlockZametok().repaintSpisok();
+             PanelBlockZametok  p = new PanelBlockZametok(urlJavaTicks);
+             p.repaintSpisok();
+        }else
         if (e.getSource().equals(newNameZametka)) {
             newNameZametka.selectAll();
         } else if (e.getSource().equals(b6)) { //Создать заметку

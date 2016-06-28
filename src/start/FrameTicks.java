@@ -175,6 +175,7 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
                 Runtime r = Runtime.getRuntime();
                 try {
                     Process p = r.exec("explorer.exe " + path);
+                    p.destroy();
                 } catch (IOException ex) {
                     Logger.getLogger(FrameTicks.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -240,21 +241,11 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
                 try {
                     // Сохранение в UTF-8
 PrintWriter wr = new PrintWriter(Paths.get(urlJavaTicks.getNameDefaultDir() + "\\" + getNameZametki() + "\\" + getNameZametki() + ".txt").toFile());
-               
-//                    Files.delete(Paths.get(urlJavaTicks.getNameDefaultDir() + "\\" + getNameZametki() + "\\" + getNameZametki() + ".txt"));
-//                    file = Files.newOutputStream(Paths.get(urlJavaTicks.getNameDefaultDir() + "\\" + getNameZametki() + "\\" + getNameZametki() + ".txt"), StandardOpenOption.CREATE_NEW, StandardOpenOption.WRITE);
-//             FileWriter wr = new FileWriter("");
-
-                    ByteArrayOutputStream outByte = new ByteArrayOutputStream();
-
-//                       byte[] b = textNew.getText().getBytes();
-//                                 outByte.write(b);
-                    
                     char[] b = textNew.getText().toCharArray();
                     wr.println(b);
                    
 
-                     
+                     wr.flush();
                     wr.close();
                     return;
 
@@ -286,6 +277,7 @@ PrintWriter wr = new PrintWriter(Paths.get(urlJavaTicks.getNameDefaultDir() + "\
         tWin1251.setBounds(300, 80, 64, 32);
         tWin1251.setActionCommand("Windows-1251");
         tWin1251.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
+        tWin1251.setToolTipText("Отобразить заметку в кодеровке Windows1251");
         tWin1251.addActionListener((e)->{
             tUTF.setSelected(false);
             newTextBlock(textFile);
@@ -300,6 +292,7 @@ PrintWriter wr = new PrintWriter(Paths.get(urlJavaTicks.getNameDefaultDir() + "\
         tUTF.setBounds(300, 115, 64, 21);
         tUTF.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
         tUTF.setActionCommand("UTF-8");
+        tUTF.setToolTipText("Отобразить заметку в кодеровке UTF-8");
         tUTF.setSelected(true);
         tUTF.addActionListener((e)->{
             tWin1251.setSelected(false);
@@ -476,12 +469,16 @@ PrintWriter wr = new PrintWriter(Paths.get(urlJavaTicks.getNameDefaultDir() + "\
         Runnable r = new Runnable() {
             @Override
             public void run() {
-                
-                if (bAddFile.isEnabled()) {//если  не свернут свернуть
+       if(listButtonAddFile.isEmpty()){
+           setVisibalPanelSave(true); 
+               bAddFile.setEnabled(true);
+               bAddFile.setVisible(true);
+       }else{
+                           if (bAddFile.isEnabled()) {//если  не свернут свернуть
                     int i = listButtonAddFile.size();
 
-                    metka:
-                    while (true) {
+                  
+             metka: while (true) {
                         try {
                             for (int x = 0; x < listButtonAddFile.size(); x++) {
                                 i--;
@@ -534,6 +531,9 @@ PrintWriter wr = new PrintWriter(Paths.get(urlJavaTicks.getNameDefaultDir() + "\
                     bAddFile.setEnabled(true);
 
                 }
+       }
+     
+
            tAnimationScrolFile.interrupt(); // Прервать поток анимации
             tAnimationScrolFile = null; // обнулить его значение
             }
