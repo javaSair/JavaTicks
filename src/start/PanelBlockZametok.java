@@ -78,18 +78,19 @@ public class PanelBlockZametok extends JPanel implements ActionListener,MouseLis
     
 //    private final Choice c = new Choice();
    private JButton bVidAll; 
-          private   String[] alternativeMetks = {"вывод по метке","работа","заказ","отдых","учеба","мероприятия"};
+          private   String[] alternativeMetks = {"работа","заказ","отдых","учеба","мероприятия"};
        private String[] massMetok = {"вывод по метке","работа","заказ","отдых","учеба","мероприятия"};
     JButton[] bReiting = new JButton[5];
        private ArrayList<String> listMetok = new ArrayList<>();
     
     
         void inicMetok() {
-            popMenu.removeAll();
+           
 //           strList.removeAll();
 //System.out.println("DS");
    
            if(Files.isRegularFile(Paths.get("conf.txt"))){
+                popMenu.removeAll();
 //               System.out.println("Найдено");
             Scanner scan;
                try {
@@ -122,6 +123,7 @@ public class PanelBlockZametok extends JPanel implements ActionListener,MouseLis
            
              } catch (IOException ex) { System.err.println(ex); }
     }else{// Если файла не существует то получить значения по умолчанию
+                
                for(int i=0;i<alternativeMetks.length;i++){
 //                   listMetok.add(alternativeMetks[i]);
                      JMenuItem jm = new JMenuItem(alternativeMetks[i]);
@@ -331,7 +333,7 @@ public class PanelBlockZametok extends JPanel implements ActionListener,MouseLis
         
         
         popMenu  = new JPopupMenu();
-        
+        add(popMenu,Integer.valueOf(9));
       
         inicMetok();// инициализация и добавление меток JPopupMenu
         labelPopMenuMetok.addMouseListener(new MouseAdapter() {
