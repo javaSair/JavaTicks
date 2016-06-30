@@ -113,7 +113,7 @@ public class JavaTicks extends JFrame {
         return s;
         
     }else{
-             return "METKA= "+";"+"REITING=1;";
+             return "METKA=без_метки"+";"+"REITING=1;";
         }
        
     }
