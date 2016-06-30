@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.FileOutputStream;
@@ -30,7 +31,10 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListModel;
@@ -71,8 +75,8 @@ public class PanelBlockZametok extends JPanel implements ActionListener,MouseLis
     private static int reiting = 1; // Инициализация с указанным рейтингом
     private static String metka = "отобразить по метке";
     private static JTextField textFilterMetki;
-    private JList<String> strList;  // Список меток
-    private final Choice c = new Choice();
+    
+//    private final Choice c = new Choice();
    private JButton bVidAll; 
           private   String[] alternativeMetks = {"вывод по метке","работа","заказ","отдых","учеба","мероприятия"};
        private String[] massMetok = {"вывод по метке","работа","заказ","отдых","учеба","мероприятия"};
@@ -81,7 +85,8 @@ public class PanelBlockZametok extends JPanel implements ActionListener,MouseLis
     
     
         void inicMetok() {
-           strList.removeAll();
+            popMenu.removeAll();
+//           strList.removeAll();
 //System.out.println("DS");
    
            if(Files.isRegularFile(Paths.get("conf.txt"))){
@@ -104,18 +109,25 @@ public class PanelBlockZametok extends JPanel implements ActionListener,MouseLis
                String s = token.nextToken();
                if(s.substring(0, s.indexOf("=")).equalsIgnoreCase("metka")){
                    String metka = s.substring(s.indexOf("=")+1);
-                   massMetok[in++] = metka;
+                   JMenuItem jm = new JMenuItem(metka);
+                   jm.addActionListener((e)->{vidPoMetki(jm.getText());});
+                   popMenu.add(jm);
+//                   massMetok[in++] = metka;
                    
                }
-           }  strList = new JList<>(massMetok);
-           strList.revalidate();
+           }  
+//           strList = new JList<>(massMetok);
+//           strList.revalidate();
             
            
              } catch (IOException ex) { System.err.println(ex); }
     }else{// Если файла не существует то получить значения по умолчанию
-               for(int i=0;i<alternativeMetks.length;i++)
-                   listMetok.add(alternativeMetks[i]);
-               
+               for(int i=0;i<alternativeMetks.length;i++){
+//                   listMetok.add(alternativeMetks[i]);
+                     JMenuItem jm = new JMenuItem(alternativeMetks[i]);
+                   jm.addActionListener((e)->{vidPoMetki(jm.getText());});
+                   popMenu.add(jm);
+               }   
            }
    
            
@@ -168,8 +180,11 @@ public class PanelBlockZametok extends JPanel implements ActionListener,MouseLis
 
     private JPanel panelVidMetka; // панель отображения по метке
     // далее список меток
-    
-
+   private JPopupMenu popMenu;
+   private JMenu podMenu;
+  private JLabel labelPopMenuMetok;
+   
+  
  
     
     void setMetki(String nameMetki){
@@ -183,7 +198,6 @@ public class PanelBlockZametok extends JPanel implements ActionListener,MouseLis
     
    
   
-    private DefaultComboBoxModel<String> difComBox = new DefaultComboBoxModel<>(massMetok); // модель списка комбо-бокса
  
  
 
@@ -301,16 +315,35 @@ public class PanelBlockZametok extends JPanel implements ActionListener,MouseLis
     }
 
     private JScrollPane scrolPanemetki;
-    void initChoice(){
-        for(int i=0;i<massMetok.length;i++){
-            c.add(massMetok[i]);
-        }
-    }
-    
+
     
     
     public PanelBlockZametok(JavaTicks urlJavaTicks) {
         this.urlJavaTicks = urlJavaTicks;
+        
+        
+        labelPopMenuMetok = new JLabel("Вывести по метке");
+        labelPopMenuMetok.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        labelPopMenuMetok.addMouseListener(this);
+        labelPopMenuMetok.setBounds(300,130, 150,20);
+        labelPopMenuMetok.setForeground(Color.LIGHT_GRAY);
+        add(labelPopMenuMetok,Integer.valueOf(9));
+        
+        
+        popMenu  = new JPopupMenu();
+        
+      
+        inicMetok();// инициализация и добавление меток JPopupMenu
+        labelPopMenuMetok.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) { 
+                popMenu.setInvoker(labelPopMenuMetok);
+                popMenu.setLocation(labelPopMenuMetok.getLocationOnScreen().x, labelPopMenuMetok.getLocationOnScreen().y+20);
+                popMenu.setVisible(true);
+            }
+               
+        });
         
  // Кнопка: отобразить все       
         bVidAll = new JButton("Отобразить все");
@@ -321,31 +354,7 @@ public class PanelBlockZametok extends JPanel implements ActionListener,MouseLis
         bVidAll.addActionListener((e)->{ urlPanelTopMenu.setVidAll();});
         add(bVidAll);
         
-// Реализация списка меток
-      DefaultListModel defM = new DefaultListModel();
-        
-      strList = new JList<>(massMetok);
-      inicMetok();
-      strList.setBounds(100, 130, 100, 20);
-       strList.addListSelectionListener((ListSelectionEvent e) -> {
-      vidPoMetki(strList.getSelectedValue());
-        });
  
-        initChoice();
-    c.addItemListener((ItemEvent e) -> {
-        if(c.getSelectedItem()!= null)
-            vidPoMetki(c.getSelectedItem());
-        });
-       
-      // Скрол для списка меток 
-       scrolPanemetki  = new JScrollPane(c);
-       scrolPanemetki.setBounds(300,130, 100,20);
-       scrolPanemetki.setOpaque(false);
-       scrolPanemetki.setHorizontalScrollBarPolicy(scrolPanemetki.HORIZONTAL_SCROLLBAR_NEVER);
-       scrolPanemetki.setVerticalScrollBarPolicy(scrolPanemetki.VERTICAL_SCROLLBAR_NEVER);
-       scrolPanemetki.setBorder(null);
-       scrolPanemetki.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-       add(scrolPanemetki,Integer.valueOf(8));
       
 // Поле для ввода и последующей фильтрации вывода заметок по заданной метке   
         textFilterMetki = new JTextField(100);
