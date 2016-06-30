@@ -18,7 +18,6 @@ public class Dirs {
 
     public Dirs(JavaTicks r) {
         this.r = r;
-
     }
 
     private Path path;

@@ -11,6 +11,7 @@ import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -26,11 +27,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -59,8 +63,13 @@ public class JavaTicks extends JFrame {
     private String metka = "без_метки";
     private PanelOption urlPanelOption;
     // Конфиг файл
-    private FileReader fileConf;
+    private Scanner fileConf;
+    
+    
+    
+    
 
+    
     // Получение уровня важности заметки
     int getReitingZametki() {
         return reiting;
@@ -131,10 +140,7 @@ public class JavaTicks extends JFrame {
         }
     }
     
-    // Обновление конфиг-файла программы
-    void setSystemConf(){
-        
-    }
+
     
     void setDirDefault(Path defaultDir){
         nameDir = defaultDir;
@@ -164,9 +170,9 @@ public class JavaTicks extends JFrame {
             @Override
             public void run() {
                 String name = "";
-                try {
-                    while (fileConf.ready()) { // Реализовать подгрузку начальных значений
-                        name += (char) fileConf.read();
+              
+                    while (fileConf.hasNext()) { // Реализовать подгрузку начальных значений
+                        name +=fileConf.nextLine();
                     }
                     StringTokenizer s = new StringTokenizer(name, ";");
                     while (s.hasMoreElements()) {
@@ -177,9 +183,7 @@ public class JavaTicks extends JFrame {
                             setDirDefault(p);
                         }
                     }
-                } catch (IOException ex) {
-                    Logger.getLogger(JavaTicks.class.getName()).log(Level.SEVERE, null, ex); // Создать всплывающее окно с выбором решения
-                }
+               
             }
         };
         new Thread(r).start();
@@ -262,13 +266,19 @@ public class JavaTicks extends JFrame {
     
 
     public JavaTicks() {
+        
+ 
+        
+        
 
         try {
-            fileConf = new FileReader("conf.txt");
-        } catch (FileNotFoundException ex) {
+            
+       
+          fileConf = new Scanner(Paths.get("conf.txt"), "utf-8");
+        } catch (IOException ex) {
             try {
                 PrintWriter writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream("conf.txt"), "utf-8"));
-                fileConf = new FileReader("conf.txt");
+              fileConf = new Scanner(Paths.get("conf.txt"), "utf-8");
             } catch (IOException ex1) {
                 Logger.getLogger(JavaTicks.class.getName()).log(Level.SEVERE, null, ex1);
             }
@@ -316,7 +326,7 @@ public class JavaTicks extends JFrame {
             public void mouseDragged(MouseEvent e) {
                 setLocation(getLocation().x - (point.x - e.getX()), getLocation().y - (point.y - e.getY()));
             }
-
+ 
         });
 // Инициализация панелей компонентов
         frameTicks = new FrameTicks(this);

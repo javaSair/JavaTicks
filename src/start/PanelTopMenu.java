@@ -264,6 +264,7 @@ public class PanelTopMenu extends JPanel implements MouseListener{
             Dirs d = urlJavaTicks.getDirs();
             d.createDir(); // Перечитать все заметки
             urlJavaTicks.geturlPanelBlockZametok().repaintSpisok();
+//                 urlJavaTicks.geturlPanelBlockZametok().inicMetok();
              PanelBlockZametok  p = new PanelBlockZametok(urlJavaTicks);
              p.repaintSpisok();
             

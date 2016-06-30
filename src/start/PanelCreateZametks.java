@@ -356,6 +356,9 @@ void setInitZnacheniya(){
             //urlJavaTicks.getStandardPanel().getLoadingZametki().runScan(openNameZametka.getText());
             urlJavaTicks.getFrameTicks().setNullTextFile();
             urlJavaTicks.getStandardPanel().getLoadingZametki().runScan(s);
+            urlJavaTicks.getFrameTicks().setReiting(znachimost);
+            urlJavaTicks.getFrameTicks().setSelektBox(metka.getText());
+       
             urlJavaTicks.setContentPane(urlJavaTicks.getFrameTicks());
             urlJavaTicks.revalidate();
         } else if (e.getSource().equals(open)) {

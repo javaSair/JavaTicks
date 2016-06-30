@@ -280,6 +280,7 @@ public class StandardPanel extends JPanel implements MouseListener {
         b4.addActionListener((e)->{  
             
             urlJavaTicks.geturlPanelBlockZametok().repaintSpisok();
+//                 urlJavaTicks.geturlPanelBlockZametok().inicMetok();
              PanelBlockZametok  p = new PanelBlockZametok(urlJavaTicks);
              p.repaintSpisok();
              

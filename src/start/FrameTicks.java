@@ -7,14 +7,19 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FileDialog;
 import java.awt.Font; 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream; 
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.Reader;
@@ -22,18 +27,23 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
+import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton; 
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane; 
 import javax.swing.JPanel;
 import javax.swing.JTextArea; 
 import javax.swing.JToggleButton;
 
-public class FrameTicks extends JLayeredPane implements MouseListener {
+public class FrameTicks extends JLayeredPane implements MouseListener,ActionListener{
 
     private static OutputStream file = null;
     private JLabel StrokaN;
@@ -60,7 +70,9 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
     private final JLabel LABELFON;
 
     private static boolean flag = false; // Индикатор статуса свернуто\развернуто
-
+    private JComboBox<String> box;
+    private int reiting = 1;
+    
     
      void setNullTextFile(){
         textFile = "";
@@ -81,6 +93,8 @@ public class FrameTicks extends JLayeredPane implements MouseListener {
     }
 
     void setVisibalPanelSave(boolean flag) {
+        panelVidReiting.setVisible(flag);
+        box.setVisible(flag);
         panelTextDecode.setVisible(flag);
         bSave.setVisible(flag);
     }
@@ -259,11 +273,175 @@ PrintWriter wr = new PrintWriter(Paths.get(urlJavaTicks.getNameDefaultDir() + "\
         new Thread(r).start();
 
     }
+    
+     private  String[] alternativeMetks = {"работа","заказ","отдых","учеба","мероприятия"};
+        private ArrayList<String> listMetok = new ArrayList<>();
+     private DefaultComboBoxModel<String> boxModel ;
+     
+    void updateConfSyst(){
+        try{
+            PrintWriter wr = new PrintWriter(new OutputStreamWriter(new FileOutputStream("conf.txt"), "utf-8"));
 
+//               for(int i=0;i<alternativeMetks.length;i++){
+//                   wr.write("METKA="+alternativeMetks[i]+";");
+//               }
+               for(int x =0;x<listMetok.size();x++)
+                   wr.write("METKA="+listMetok.get(x)+";");
+               wr.close();
+               
+        
+           
+           
+             } catch (IOException ex) {
+            try {
+              PrintWriter f = new PrintWriter(new OutputStreamWriter(new FileOutputStream("conf.txt"), "utf-8"));         
+            f.close();
+            } catch (IOException ex1) {
+                Logger.getLogger(FrameTicks.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+                   
+                    boxModel = new DefaultComboBoxModel<>(alternativeMetks);
+               }
+    }
+    
+    
+        void getMassivMetok(){
+             ArrayList<String> s = new ArrayList<>(listMetok);
+             for(int i=0;i<alternativeMetks.length;i++){
+                 s.add(alternativeMetks[i]);
+             }
+              for(int i=0;i<s.size();i++)
+                  urlJavaTicks.geturlPanelBlockZametok().setMetki(s.get(i));
+                  urlJavaTicks.geturlPanelBlockZametok().setInitializedMetki();
+    }   
+  
+
+    void initBoxModel() {
+        
+        
+        
+        boxModel = new DefaultComboBoxModel<>();
+   
+           if(Files.isRegularFile(Paths.get("conf.txt"))){
+            Scanner scan;
+               try {
+                   scan = new Scanner(Paths.get("conf.txt"),"UTF-8");
+             
+            String str="";
+            
+            while(scan.hasNext()){
+                str+=scan.next();
+            }
+            System.out.println(str);
+            StringTokenizer token = new StringTokenizer(str, ";");
+           while(token.hasMoreElements()){
+               String s = token.nextToken();
+               if(s.substring(0, s.indexOf("=")).equalsIgnoreCase("metka")){
+                   String metka = s.substring(s.indexOf("=")+1);
+                 listMetok.add(metka);
+                   System.out.println(metka);
+                   boxModel.addElement(metka);
+                   box = new JComboBox<>(boxModel);
+               }
+           }
+            if(boxModel.getSize()==0){
+                 for(int i=0;i<alternativeMetks.length;i++)
+                   listMetok.add(alternativeMetks[i]);
+               boxModel = new DefaultComboBoxModel<>(alternativeMetks);
+           }
+                  
+           
+             } catch (IOException ex) {
+                try {
+                   PrintWriter wr = new PrintWriter(new OutputStreamWriter(new FileOutputStream("conf.txt"), "utf-8"));
+                   wr.close();
+                } catch (IOException ex1) {
+                    Logger.getLogger(FrameTicks.class.getName()).log(Level.SEVERE, null, ex1);
+                }
+                   String[] alternativeMetks = {"работа","заказ","отдых","учеба","мероприятия"};
+                    boxModel = new DefaultComboBoxModel<>(alternativeMetks);
+                   
+               }
+    }else{// Если файла не существует то получить значения по умолчанию
+               for(int i=0;i<alternativeMetks.length;i++)
+                   listMetok.add(alternativeMetks[i]);
+               
+           }
+   
+           
+           
+          
+    
+   }
+    private ImageIcon icoVidFalse = new ImageIcon(JavaTicks.class.getResource("/image/StatusMetki/IcoFalse.png")); // Иконка в состоянии - Не выбрано
+    private ImageIcon icoVidTrue = new ImageIcon(JavaTicks.class.getResource("/image/StatusMetki/IcoTrue.png"));  // Иконка в состоянии - Выбрано   
+    private JPanel panelVidReiting;
+    
+        JButton[] bReiting = new JButton[5];
+
+    private void initbReiting() {
+        int x = 300;
+        for (int i = 0; i < bReiting.length; i++) {
+            bReiting[i] = new JButton(icoVidFalse);
+            bReiting[i].setBorder(null);
+            bReiting[i].setContentAreaFilled(false);
+            bReiting[i].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            bReiting[i].setActionCommand(String.valueOf(i + 1));
+            bReiting[i].addActionListener(this);
+//            bReiting[i].setBounds(x, 90, 20, 20);
+        }
+        setVisibalMetkiReitinga(reiting);
+    }
+    
+    void setVisibalMetkiReitinga(int x) {
+        if (x < 6) {
+            for (int i = 0; i < bReiting.length; i++) {
+                if (i < x) {
+                    bReiting[i].setIcon(icoVidTrue);
+                } else {
+                    bReiting[i].setIcon(icoVidFalse);
+                }
+            }
+        }
+
+    }
+    
+    
+   void setSelektBox(String metka){
+       box.setSelectedItem(metka);
+       if(!box.getSelectedItem().toString().equals(metka)){
+           listMetok.add(metka);
+           boxModel.addElement(metka);
+       box.setSelectedItem(metka);
+     updateConfSyst();
+       }
+   } 
+    
+   void setReiting(int newReiting){
+       reiting = newReiting;
+       setVisibalMetkiReitinga(newReiting);
+   }
+    
 // 
     public FrameTicks(JavaTicks r) {
+   
         
-        
+            // Список меток
+            initBoxModel();
+        box  = new JComboBox<>(boxModel);
+        box.setEditable(true);
+        box.setBounds(190, 80, 137, 25);
+        box.addActionListener((e)->{
+            String s = box.getSelectedItem().toString();
+            if(!listMetok.contains(s)){
+                 listMetok.add(s);
+            boxModel.addElement(s);
+             updateConfSyst();
+            }
+            
+        });
+        box.addItemListener((e)->{urlJavaTicks.UpdateConfigZametki(getNameZametki(), box.getSelectedItem().toString(), reiting);});
+        add(box);
         
         panelTextDecode = new JPanel();
         panelTextDecode.setBounds(300, 76, 130, 64);
@@ -274,7 +452,7 @@ PrintWriter wr = new PrintWriter(Paths.get(urlJavaTicks.getNameDefaultDir() + "\
                 // Реализация чтения текста в разных кодировках
         tWin1251 = new JToggleButton(new ImageIcon(JavaTicks.class.getResource("/image/codirovka/win1251False.png")));
         tWin1251.setSelectedIcon(new ImageIcon(JavaTicks.class.getResource("/image/codirovka/win1251True.png")));
-        tWin1251.setBounds(300, 80, 64, 32);
+        tWin1251.setBounds(300, 80, 64, 21);
         tWin1251.setActionCommand("Windows-1251");
         tWin1251.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
         tWin1251.setToolTipText("Отобразить заметку в кодеровке Windows1251");
@@ -454,6 +632,20 @@ PrintWriter wr = new PrintWriter(Paths.get(urlJavaTicks.getNameDefaultDir() + "\
         LABELFON.setBounds(0, 0, 495, 495);
         add(LABELFON, Integer.valueOf(0));
 
+               panelVidReiting = new JPanel();
+        panelVidReiting.setBounds(190, 110, 137, 30); //370, 130, 100, 20
+        initbReiting();
+        setVisibalMetkiReitinga(reiting);
+        panelVidReiting.add(bReiting[0]);
+        panelVidReiting.add(bReiting[1]);
+        panelVidReiting.add(bReiting[2]);
+        panelVidReiting.add(bReiting[3]);
+        panelVidReiting.add(bReiting[4]);
+//        panelVidReiting.setVisible(false);
+//        add(panelVidReiting,Integer.valueOf(9));
+        
+        
+        
 //Реализовать перемещение окна
         setVisible(true);
     }
@@ -673,6 +865,43 @@ PrintWriter wr = new PrintWriter(Paths.get(urlJavaTicks.getNameDefaultDir() + "\
                 
             }
          }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        
+        
+        switch(e.getActionCommand()){
+            
+            case "1":{
+                   setVisibalMetkiReitinga(1);
+                     reiting = 1;
+                     urlJavaTicks.UpdateConfigZametki(getNameZametki(), box.getSelectedItem().toString(), reiting);
+            }break;
+            case "2":{
+                   setVisibalMetkiReitinga(2);
+                   reiting = 2;
+                   urlJavaTicks.UpdateConfigZametki(getNameZametki(), box.getSelectedItem().toString(), reiting);
+            }break;
+            case "3":{
+                       setVisibalMetkiReitinga(3);
+                   reiting = 3;
+                   urlJavaTicks.UpdateConfigZametki(getNameZametki(), box.getSelectedItem().toString(), reiting);
+            }break;
+            case "4":{
+                       setVisibalMetkiReitinga(4);
+                   reiting = 4;
+                   urlJavaTicks.UpdateConfigZametki(getNameZametki(), box.getSelectedItem().toString(), reiting);
+            }break;
+            case "5":{
+                       setVisibalMetkiReitinga(5);
+                   reiting = 5;
+                   urlJavaTicks.UpdateConfigZametki(getNameZametki(), box.getSelectedItem().toString(), reiting);
+            }break;
+            default : break;
+        }
+      
+        
     }
     
     
