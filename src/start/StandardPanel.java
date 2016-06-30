@@ -247,6 +247,11 @@ public class StandardPanel extends JPanel implements MouseListener {
         b2.setForeground(Color.LIGHT_GRAY);
         b2.setContentAreaFilled(false);
         b2.addMouseListener(this);
+        b2.addActionListener((e)->{
+            KontactPanel cont = new KontactPanel(urlJavaTicks);
+            urlJavaTicks.setContentPane(cont);
+            urlJavaTicks.revalidate();
+        });
         b2.setActionCommand("b2");
         b2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         add(b2, Integer.valueOf(3));
