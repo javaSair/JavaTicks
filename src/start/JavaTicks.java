@@ -43,12 +43,7 @@ import javax.swing.SwingUtilities;
 
 public class JavaTicks extends JFrame {
 
-//   private final String S = "../";  // для jar
-    private String S = "";             // для IDE
 
-    String getS() {
-        return S;
-    }
 
     private static Path path;
     private FrameTicks frameTicks;
@@ -284,22 +279,22 @@ public class JavaTicks extends JFrame {
             }
         }
         readConf();
-        IcoMap.put("txt", new ImageIcon(JavaTicks.class.getResource(S + "/image/tipFile/txtTip.png")));
-        IcoMap.put("ai", new ImageIcon(JavaTicks.class.getResource(S + "/image/tipFile/aiTip.png")));
-        IcoMap.put("class", new ImageIcon(JavaTicks.class.getResource(S + "/image/tipFile/classTip.png")));
-        IcoMap.put("doc", new ImageIcon(JavaTicks.class.getResource(S + "/image/tipFile/docTip.png")));
-        IcoMap.put("eps", new ImageIcon(JavaTicks.class.getResource(S + "/image/tipFile/epsTip.png")));
-        IcoMap.put("gif", new ImageIcon(JavaTicks.class.getResource(S + "/image/tipFile/gifTip.png")));
-        IcoMap.put("java", new ImageIcon(JavaTicks.class.getResource(S + "/image/tipFile/javaTip.png")));
-        IcoMap.put("jpg", new ImageIcon(JavaTicks.class.getResource(S + "/image/tipFile/jpgTip.png")));
-        IcoMap.put("none", new ImageIcon(JavaTicks.class.getResource(S + "/image/tipFile/noneTip.png")));
-        IcoMap.put("pdf", new ImageIcon(JavaTicks.class.getResource(S + "/image/tipFile/pdfTip.png")));
-        IcoMap.put("png", new ImageIcon(JavaTicks.class.getResource(S + "/image/tipFile/pngTip.png")));
-        IcoMap.put("ppt", new ImageIcon(JavaTicks.class.getResource(S + "/image/tipFile/pptTip.png")));
-        IcoMap.put("psd", new ImageIcon(JavaTicks.class.getResource(S + "/image/tipFile/psdTip.png")));
-        IcoMap.put("rar", new ImageIcon(JavaTicks.class.getResource(S + "/image/tipFile/rarTip.png")));
-        IcoMap.put("xml", new ImageIcon(JavaTicks.class.getResource(S + "/image/tipFile/xmlTip.png")));
-        IcoMap.put("zip", new ImageIcon(JavaTicks.class.getResource(S + "/image/tipFile/zipTip.png")));
+        IcoMap.put("txt", new ImageIcon(JavaTicks.class.getResource("/image/tipFile/txtTip.png")));
+        IcoMap.put("ai", new ImageIcon(JavaTicks.class.getResource("/image/tipFile/aiTip.png")));
+        IcoMap.put("class", new ImageIcon(JavaTicks.class.getResource("/image/tipFile/classTip.png")));
+        IcoMap.put("doc", new ImageIcon(JavaTicks.class.getResource("/image/tipFile/docTip.png")));
+        IcoMap.put("eps", new ImageIcon(JavaTicks.class.getResource("/image/tipFile/epsTip.png")));
+        IcoMap.put("gif", new ImageIcon(JavaTicks.class.getResource("/image/tipFile/gifTip.png")));
+        IcoMap.put("java", new ImageIcon(JavaTicks.class.getResource("/image/tipFile/javaTip.png")));
+        IcoMap.put("jpg", new ImageIcon(JavaTicks.class.getResource("/image/tipFile/jpgTip.png")));
+        IcoMap.put("none", new ImageIcon(JavaTicks.class.getResource("/image/tipFile/noneTip.png")));
+        IcoMap.put("pdf", new ImageIcon(JavaTicks.class.getResource("/image/tipFile/pdfTip.png")));
+        IcoMap.put("png", new ImageIcon(JavaTicks.class.getResource("/image/tipFile/pngTip.png")));
+        IcoMap.put("ppt", new ImageIcon(JavaTicks.class.getResource("/image/tipFile/pptTip.png")));
+        IcoMap.put("psd", new ImageIcon(JavaTicks.class.getResource("/image/tipFile/psdTip.png")));
+        IcoMap.put("rar", new ImageIcon(JavaTicks.class.getResource("/image/tipFile/rarTip.png")));
+        IcoMap.put("xml", new ImageIcon(JavaTicks.class.getResource("/image/tipFile/xmlTip.png")));
+        IcoMap.put("zip", new ImageIcon(JavaTicks.class.getResource("/image/tipFile/zipTip.png")));
 
         // Получить количество существующих заметок
         urlDirs = new Dirs(this);
@@ -309,7 +304,7 @@ public class JavaTicks extends JFrame {
         setLayout(new FlowLayout());
         setSize(495, 495);
         setLocationRelativeTo(null); // появление по середине окна
-        setIconImage(new ImageIcon(JavaTicks.class.getResource(S + "/image/ICO3.png")).getImage());
+        setIconImage(new ImageIcon(JavaTicks.class.getResource("/image/ICO3.png")).getImage());
 
 //Реалзовать перемещение окна         
         addMouseListener(new MouseAdapter() {

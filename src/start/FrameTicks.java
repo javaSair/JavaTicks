@@ -46,7 +46,6 @@ import javax.swing.JToggleButton;
 public class FrameTicks extends JLayeredPane implements MouseListener,ActionListener{
 
     private static OutputStream file = null;
-    private JLabel StrokaN;
     private JLabel nameZametki = new JLabel("Тестовый");
     private NewAnimatedIconFile urlNewAnimatedIconFile;
     private JButton labelJavaICO;
@@ -273,7 +272,7 @@ PrintWriter wr = new PrintWriter(Paths.get(urlJavaTicks.getNameDefaultDir() + "\
 
     }
     
-     private  String[] alternativeMetks = {"работа","заказ","отдых","учеба","мероприятия"};
+     private final String[] METKI = {"работа","заказ","отдых","учеба","мероприятия"};
         private ArrayList<String> listMetok = new ArrayList<>();
      private DefaultComboBoxModel<String> boxModel ;
      
@@ -299,23 +298,13 @@ PrintWriter wr = new PrintWriter(Paths.get(urlJavaTicks.getNameDefaultDir() + "\
                 Logger.getLogger(FrameTicks.class.getName()).log(Level.SEVERE, null, ex1);
             }
                    
-                    boxModel = new DefaultComboBoxModel<>(alternativeMetks);
+                    boxModel = new DefaultComboBoxModel<>(METKI);
                }
     }
     
-    
-        void getMassivMetok(){
-             ArrayList<String> s = new ArrayList<>(listMetok);
-             for(int i=0;i<alternativeMetks.length;i++){
-                 s.add(alternativeMetks[i]);
-             }
-              for(int i=0;i<s.size();i++)
-                  urlJavaTicks.geturlPanelBlockZametok().setMetki(s.get(i));
-                  urlJavaTicks.geturlPanelBlockZametok().setInitializedMetki();
-    }   
   
 
-    void initBoxModel() {
+  private  void initBoxModel() {
         
         
         
@@ -344,9 +333,9 @@ PrintWriter wr = new PrintWriter(Paths.get(urlJavaTicks.getNameDefaultDir() + "\
                }
            }
             if(boxModel.getSize()==0){
-                 for(int i=0;i<alternativeMetks.length;i++)
-                   listMetok.add(alternativeMetks[i]);
-               boxModel = new DefaultComboBoxModel<>(alternativeMetks);
+                 for(int i=0;i<METKI.length;i++)
+                   listMetok.add(METKI[i]);
+               boxModel = new DefaultComboBoxModel<>(METKI);
            }
                   
            
@@ -357,13 +346,12 @@ PrintWriter wr = new PrintWriter(Paths.get(urlJavaTicks.getNameDefaultDir() + "\
                 } catch (IOException ex1) {
                     Logger.getLogger(FrameTicks.class.getName()).log(Level.SEVERE, null, ex1);
                 }
-                   String[] alternativeMetks = {"работа","заказ","отдых","учеба","мероприятия"};
-                    boxModel = new DefaultComboBoxModel<>(alternativeMetks);
+                    boxModel = new DefaultComboBoxModel<>(METKI);
                    
                }
     }else{// Если файла не существует то получить значения по умолчанию
-               for(int i=0;i<alternativeMetks.length;i++)
-                   listMetok.add(alternativeMetks[i]);
+               for(int i=0;i<METKI.length;i++)
+                   listMetok.add(METKI[i]);
                
            }
    
@@ -527,7 +515,7 @@ PrintWriter wr = new PrintWriter(Paths.get(urlJavaTicks.getNameDefaultDir() + "\
         add(nameZametki, Integer.valueOf(8));//-------------------------------------------------------------------------
 
 // Метка-кнопка свертывания развертывания списка файлов (в левом верхнем углу)
-        labelJavaICO = new JButton(new ImageIcon(JavaTicks.class.getResource(urlJavaTicks.getS() + "/image/FileTipICO.png")));
+        labelJavaICO = new JButton(new ImageIcon(JavaTicks.class.getResource("/image/FileTipICO.png")));
         labelJavaICO.setBorder(null);
         labelJavaICO.setContentAreaFilled(false);
         labelJavaICO.setBounds(0, 75, 56, 64);
@@ -537,7 +525,7 @@ PrintWriter wr = new PrintWriter(Paths.get(urlJavaTicks.getNameDefaultDir() + "\
         add(labelJavaICO, Integer.valueOf(8));
 
 // Кнопка добавления файла
-        bAddFile = new JButton(new ImageIcon(JavaTicks.class.getResource(urlJavaTicks.getS() + "/image/newButton.png")));
+        bAddFile = new JButton(new ImageIcon(JavaTicks.class.getResource("/image/newButton.png")));
         bAddFile.setToolTipText("Добавить файл");
         bAddFile.setBounds(getWidthAddFile() + 90, 70, 38, 23);
         bAddFile.setBorder(null);
@@ -561,7 +549,7 @@ PrintWriter wr = new PrintWriter(Paths.get(urlJavaTicks.getNameDefaultDir() + "\
         add(bAddFile, Integer.valueOf(8));
 
 // Кнопки добавления из файла 
-        bAddFileText = new JButton(new ImageIcon(JavaTicks.class.getResource(urlJavaTicks.getS() + "/image/ReadFiles.png")));
+        bAddFileText = new JButton(new ImageIcon(JavaTicks.class.getResource("/image/ReadFiles.png")));
         bAddFileText.setToolTipText("Прочитать из файла");
         bAddFileText.setBounds(-80, 305, 100, 25);
         bAddFileText.setBorder(null);
@@ -582,7 +570,7 @@ PrintWriter wr = new PrintWriter(Paths.get(urlJavaTicks.getNameDefaultDir() + "\
         add(bAddFileText, Integer.valueOf(2));
 
         // Кнопка добавления из файла 
-        bAddFileText2 = new JButton(new ImageIcon(JavaTicks.class.getResource(urlJavaTicks.getS() + "/image/ReadFiles.png")));
+        bAddFileText2 = new JButton(new ImageIcon(JavaTicks.class.getResource("/image/ReadFiles.png")));
         bAddFileText2.setBounds(-80, 255, 100, 25);
         bAddFileText2.setBorder(null);
         bAddFileText2.setContentAreaFilled(false);
@@ -591,7 +579,7 @@ PrintWriter wr = new PrintWriter(Paths.get(urlJavaTicks.getNameDefaultDir() + "\
         add(bAddFileText2, Integer.valueOf(8));
 
         // Кнопка добавления из файла 
-        bAddFileText3 = new JButton(new ImageIcon(JavaTicks.class.getResource(urlJavaTicks.getS() + "/image/ReadFiles.png")));
+        bAddFileText3 = new JButton(new ImageIcon(JavaTicks.class.getResource("/image/ReadFiles.png")));
         bAddFileText3.setBounds(-80, 280, 100, 25);
         bAddFileText3.setBorder(null);
         bAddFileText3.setContentAreaFilled(false);
@@ -627,7 +615,7 @@ PrintWriter wr = new PrintWriter(Paths.get(urlJavaTicks.getNameDefaultDir() + "\
 //        scrolPane.setOpaque(false);
 //        add(scrolPane, Integer.valueOf(3));
 // Обложка фона      
-        LABELFON = new JLabel(new ImageIcon(JavaTicks.class.getResource(urlJavaTicks.getS() + "/image/StartFonImage.png")));
+        LABELFON = new JLabel(new ImageIcon(JavaTicks.class.getResource("/image/StartFonImage.png")));
         LABELFON.setBounds(0, 0, 495, 495);
         add(LABELFON, Integer.valueOf(0));
 

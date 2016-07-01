@@ -71,7 +71,7 @@ public class PanelOption extends JPanel {
         add(buttonDifaultDir, Integer.valueOf(10));
 
         // Обложка фона      
-        LABELFON = new JLabel(new ImageIcon(JavaTicks.class.getResource(urlJavaTicks.getS() + "/image/StartFonImage.png")));
+        LABELFON = new JLabel(new ImageIcon(JavaTicks.class.getResource("/image/StartFonImage.png")));
         LABELFON.setBounds(0, 0, 495, 495);
         add(LABELFON, Integer.valueOf(3));
     }

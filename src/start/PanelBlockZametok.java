@@ -21,38 +21,24 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BorderFactory;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.ListModel;
-import javax.swing.event.ListDataListener;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.plaf.basic.BasicListUI;
 
 
-
-
-
-
-
+ 
 
 /**
  *
- * @author Pavel Mayatnikov Этот класс реализует панель редактирования
+ * @author Pavel Mayatnikov 
+ * Этот класс реализует панель редактирования заметок
  */
 public class PanelBlockZametok extends JPanel implements ActionListener,MouseListener {
 
@@ -78,8 +64,8 @@ public class PanelBlockZametok extends JPanel implements ActionListener,MouseLis
     
 //    private final Choice c = new Choice();
    private JButton bVidAll; 
-          private   String[] alternativeMetks = {"работа","заказ","отдых","учеба","мероприятия"};
-       private String[] massMetok = {"вывод по метке","работа","заказ","отдых","учеба","мероприятия"};
+          private final  String[] METKI = {"работа","заказ","отдых","учеба","мероприятия"};
+       private String[] massMetok ;
     JButton[] bReiting = new JButton[5];
        private ArrayList<String> listMetok = new ArrayList<>();
     
@@ -124,9 +110,9 @@ public class PanelBlockZametok extends JPanel implements ActionListener,MouseLis
              } catch (IOException ex) { System.err.println(ex); }
     }else{// Если файла не существует то получить значения по умолчанию
                 
-               for(int i=0;i<alternativeMetks.length;i++){
+               for(int i=0;i<METKI.length;i++){
 //                   listMetok.add(alternativeMetks[i]);
-                     JMenuItem jm = new JMenuItem(alternativeMetks[i]);
+                     JMenuItem jm = new JMenuItem(METKI[i]);
                    jm.addActionListener((e)->{vidPoMetki(jm.getText());});
                    popMenu.add(jm);
                }   
@@ -407,7 +393,7 @@ public class PanelBlockZametok extends JPanel implements ActionListener,MouseLis
         add(panelVidReiting);
 
         // Обложка фона      
-        LABELFON = new JLabel(new ImageIcon(JavaTicks.class.getResource(urlJavaTicks.getS() + "/image/StartFonImage.png")));
+        LABELFON = new JLabel(new ImageIcon(JavaTicks.class.getResource("/image/StartFonImage.png")));
         LABELFON.setBounds(0, 0, 495, 495);
         add(LABELFON, Integer.valueOf(3));
 

@@ -166,7 +166,7 @@ public class PanelCreateZametks extends JPanel implements MouseListener, ActionL
     }
     
     
-void setInitZnacheniya(){
+private void setInitZnacheniya(){
     StringTokenizer s = new StringTokenizer(urlJavaTicks.getConfZametki(name.getText()), ";");
 //   System.out.println(name.getText());
         while(s.hasMoreElements()){
@@ -197,7 +197,7 @@ void setInitZnacheniya(){
 //private JPanel panel;
 //private JScrollPane scrolBlock;
     // Инициировать все компоненты
-    void setVisibalBlock(boolean flag) {
+   private void setVisibalBlock(boolean flag) {
         dell.setVisible(flag);
         open.setVisible(flag);
         create.setVisible(flag);
@@ -214,15 +214,7 @@ void setInitZnacheniya(){
         }
         revalidate();
     }
-
-    public int getW() {
-        return 20;
-    }
-
-    int getH() {
-        return 150;
-    }
-
+ 
     public PanelCreateZametks(JavaTicks t, Path path, int h) { // Задать расположение компонента при старте
         
         this.urlJavaTicks = t;
@@ -236,19 +228,19 @@ void setInitZnacheniya(){
         znachimost  = urlJavaTicks.getReitingZametki();
 //         setBackground(Color.red);
 //         setBorder(BorderFactory.createEtchedBorder());
-        setBounds(getW(), getH(), 450, 20);
+        setBounds(20, 150, 450, 20);
 
 //        System.out.println("path "+path);
         String strong = path.toString();
 
         //кнопка удаления заметки
-        dell = new JButton(new ImageIcon(JavaTicks.class.getResource(urlJavaTicks.getS() + "/image/Navigation/CreatePanel/ico/delete.png")));
+        dell = new JButton(new ImageIcon(JavaTicks.class.getResource("/image/Navigation/CreatePanel/ico/delete.png")));
 
         //кнопка открытия заметки    
-        create = new JButton(new ImageIcon(JavaTicks.class.getResource(urlJavaTicks.getS() + "/image/Navigation/CreatePanel/ico/process.png")));
+        create = new JButton(new ImageIcon(JavaTicks.class.getResource("/image/Navigation/CreatePanel/ico/process.png")));
 
         // кнопка открытия папки заметки
-        open = new JButton(new ImageIcon(JavaTicks.class.getResource(urlJavaTicks.getS() + "/image/Navigation/CreatePanel/ico/folder.png")));
+        open = new JButton(new ImageIcon(JavaTicks.class.getResource("/image/Navigation/CreatePanel/ico/folder.png")));
 
         //Назание заметки
         name = new JLabel(strong.substring(strong.lastIndexOf("\\") + 1));

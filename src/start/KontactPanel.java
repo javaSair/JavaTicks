@@ -19,10 +19,7 @@ public class KontactPanel extends JPanel implements MouseListener {
     private PanelTopMenu urlPanelTopMenu;
     private JavaTicks urlJavaTicks;
     private JLabel LABELFON;
-    
-    private JButton urlProgrammi;
-    private JButton urlAvtora;
-    private JLabel emailAvtora;
+
     
     private JLabel labelGit,labelEmail,labelVk;
 
@@ -68,7 +65,7 @@ public class KontactPanel extends JPanel implements MouseListener {
         
         
                 // Обложка фона      
-        LABELFON = new JLabel(new ImageIcon(JavaTicks.class.getResource(urlJavaTicks.getS() + "/image/StartFonImage.png")));
+        LABELFON = new JLabel(new ImageIcon(JavaTicks.class.getResource("/image/StartFonImage.png")));
         LABELFON.setBounds(0, 0, 495, 495);
         add(LABELFON, Integer.valueOf(3));
         
