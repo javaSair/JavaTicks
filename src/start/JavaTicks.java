@@ -228,7 +228,7 @@ public class JavaTicks extends JFrame {
         return nameDir.toAbsolutePath().toString();
     }
 
-     ArrayList<Path> DirZametks = new ArrayList<>();
+   private static ArrayList<Path> DirZametks = new ArrayList<>();
 
     ArrayList<Path> getListZametki() {
         return DirZametks;
@@ -250,7 +250,8 @@ public class JavaTicks extends JFrame {
 
     // Очистить 
     void clearListLabel() {
-        DirZametks.clear();
+        DirZametks = null;
+        DirZametks = new ArrayList<>();
     }
     
  void printList(){
