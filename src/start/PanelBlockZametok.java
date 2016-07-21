@@ -254,31 +254,16 @@ public class PanelBlockZametok extends JPanel implements ActionListener,MouseLis
 
             PanelCreateZametks p = new PanelCreateZametks(urlJavaTicks, urlJavaTicks.getListZametki().get(i), i * 20);
             p.setBorder(null);
-//                    p.setOpaque(false);
+            p.setOpaque(false);
             p.setBounds(0, i * 20, 430, 20);
-//                    p.setInitZnacheniya();
 
-//                    p.addMouseListener(new MouseAdapter() {
-//
-//                        @Override
-//                        public void mouseEntered(MouseEvent e) {
-//                            p.SetVisibalMetki(false);
-//                        }
-//
-//                        @Override
-//                        public void mouseExited(MouseEvent e) {
-//                            p.SetVisibalMetki(true);
-//                        }
-//
-//                    }
-//                    );
-//                    p.setBorder(BorderFactory.createEtchedBorder());
             listPanel.add(p);
         }
         for (int j = 0; j < listPanel.size(); j++) {
             panelZametki.add(listPanel.get(j), Integer.valueOf(8));
-
+            panelZametki.setOpaque(false);
         }
+        
 
             setVisibalMetkiReitinga(reiting);
         
@@ -309,6 +294,10 @@ public class PanelBlockZametok extends JPanel implements ActionListener,MouseLis
     public PanelBlockZametok(JavaTicks urlJavaTicks) {
         this.urlJavaTicks = urlJavaTicks;
         
+        
+          setLayout(null);
+          setBounds(0, 0, 495, 495);
+          setOpaque(false);
         
         labelPopMenuMetok = new JLabel("Вывести по метке");
         labelPopMenuMetok.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -358,21 +347,22 @@ public class PanelBlockZametok extends JPanel implements ActionListener,MouseLis
         panelZametki.setLayout(null);
         panelZametki.setBounds(20, 150, 450, 330);
         panelZametki.setSize(450, 330 + (listPanel.size() * 20));
-        panelZametki.setBackground(new Color(34, 35, 35));
+//        panelZametki.setBackground(new Color(34, 35, 35));
+        panelZametki.setOpaque(false);
         panelZametki.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
         panelZametki.setPreferredSize(new Dimension(panelZametki.getPreferredSize().width, 330));
  
         // прокрутка для заметок
         scrol = new JScrollPane(panelZametki, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrol.setViewportView(panelZametki);
+//        scrol = new JScrollPane();
+//        scrol.setViewportView(panelZametki);
+        scrol.getViewport ().setOpaque (false);
         scrol.setBorder(null);
         scrol.setOpaque(false);
         scrol.setBounds(20, 150, 450, 330);
         add(scrol);
 
-        setLayout(null);
-        setBounds(0, 0, 495, 495);
-        setOpaque(false);
+       
 
         // верхняя панель меню
         urlPanelTopMenu = new PanelTopMenu(urlJavaTicks);

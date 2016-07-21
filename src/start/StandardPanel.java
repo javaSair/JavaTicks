@@ -32,7 +32,7 @@ public class StandardPanel extends JPanel implements MouseListener {
 //Метка оповещения: (Заметка уже существует)
     JLabel fonPoppupMessag;
     JLabel fonPoppupMessagNO;
-
+   private GregorianCalendar_1 urlGregorianCalendar_1; // Блок календаря
     private JLabel labelPanelFon; // метка-фон навигационной меню
     private JLabel NumbetNameZametks;
     private JavaTicks urlJavaTicks;
@@ -101,11 +101,24 @@ public class StandardPanel extends JPanel implements MouseListener {
     }
  
 
+ 
+    
+    
+    
     public StandardPanel(JavaTicks urlJavaTicks) {
         urlLoadingZametki = new LoadingZametki(this,urlJavaTicks);
         
+//        \image\FonCalendar.png
+       
+    // добавить на панель календарь
+        urlGregorianCalendar_1 = new GregorianCalendar_1(urlJavaTicks);
+        urlGregorianCalendar_1.setBounds(275, 90, 190, 250);
+        add(urlGregorianCalendar_1,Integer.valueOf(5)); 
         
-
+        // Подложка для календаря
+        JLabel fonCalendar = new JLabel(new ImageIcon(JavaTicks.class.getResource("/image/FonCalendar.png")));
+        fonCalendar.setBounds(255, 90, 220, 297);
+        add(fonCalendar);
  
         // Сообщение о наличии создаваемой заметки
         fonPoppupMessag = new JLabel(new ImageIcon(JavaTicks.class.getResource("/image/search/Message.png")));
@@ -368,7 +381,7 @@ public class StandardPanel extends JPanel implements MouseListener {
         NumbetNameZametks.addMouseListener(this);
          
         NumbetNameZametks.setFont(new Font("Arial", Font.BOLD, 40));
-        NumbetNameZametks.setBounds(250, 25, 155, 141);
+        NumbetNameZametks.setBounds(50, 25, 155, 141);
 //        NumbetNameZametks.setBorder(BorderFactory.createEtchedBorder());
         add(NumbetNameZametks, Integer.valueOf(3));
 
@@ -376,6 +389,8 @@ public class StandardPanel extends JPanel implements MouseListener {
         LABELFON = new JLabel(new ImageIcon(JavaTicks.class.getResource("/image/StartFonImage.png")));
         LABELFON.setBounds(0, 0, 495, 495);
         add(LABELFON, Integer.valueOf(3));
+        
+ 
     }
 
        @Override

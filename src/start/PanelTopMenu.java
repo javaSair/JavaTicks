@@ -319,7 +319,8 @@ public class PanelTopMenu extends JPanel implements MouseListener{
         b7.addMouseListener(this);
         b7.setActionCommand("b7");
         b7.addActionListener((e)->{
-            
+//           urlJavaTicks.getStandardPanel().remove(StandardPanel.getGregorianCalendar_1());
+//           urlJavaTicks.getStandardPanel().add(new GregorianCalendar_1(urlJavaTicks));
 //            System.out.println("b7");
             updateCountLabek();
             urlJavaTicks.getStandardPanel().setVisiblePanelAdd(false);
